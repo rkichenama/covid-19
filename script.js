@@ -1,73 +1,3 @@
-const all = (selector, container = document) =>
-  Array.from(container.querySelectorAll(selector));
-const one = (selector, container) => all(selector, container).shift();
-
-const element = tag => document.createElement(tag);
-const create = (tag = "div", options = {}) => {
-  const e = element(tag);
-  Object.entries(options).forEach(([attr, value]) =>
-    e.setAttribute(attr, value)
-  );
-  return e;
-};
-const createNS = (tag = 'svg', options = {}) => {
-  const e = document.createElementNS('http://www.w3.org/2000/svg', tag);
-  Object.entries(options).forEach(([ attr, value ]) => (
-    e.setAttribute(attr, value.toString().replace(/NaN/g, '0'))
-  ));
-  return e;
-};
-const parentOf = (element, dist = 1) => {
-  let parent = element;
-  while (--dist && document !== parent) {
-    parent = parent.parentElement;
-  }
-  return parent;
-};
-const text = txt => document.createTextNode(txt);
-const addChild = (parent, ...children) => {
-  const frag = document.createDocumentFragment();
-  children.forEach(child => frag.appendChild(child));
-  parent.appendChild(frag);
-  return parent;
-};
-const replaceChildren = (parent, ...children) => {
-  const frag = document.createDocumentFragment();
-  children.forEach(child => frag.appendChild(child));
-  parent.innerHTML = "";
-  parent.appendChild(frag);
-  return parent;
-};
-const replaceElement = (element, ...children) => {
-  const frag = document.createDocumentFragment();
-  children.forEach(child => frag.appendChild(child));
-  parentOf(element).replaceChild(frag, element);
-  return parent;
-};
-const locale = () =>
-  navigator.languages && navigator.languages.length
-    ? navigator.languages[0]
-    : navigator.userLanguage ||
-      navigator.language ||
-      navigator.browserLanguage ||
-      "en";
-const sleep = n => new Promise(res => setTimeout(res, n * 1000));
-
-
-
-
-const dayMultiplier = 24 * 60 * 60 * 1000;
-const strToDate = str => new Date(`${str} 12:00 UTC`);
-const addDaysTo = (d, n) => new Date(d.getTime() + (n * dayMultiplier));
-const fmtRealDate = d => `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getDate().toString().padStart(2, '0')}`;
-const daysBetween = s => e => {
-  const [ start, end ] = [ s, e ].map(d => (
-    (d instanceof Date)
-      ? d.getTime()
-      : (new Date(`${d} UTC-5`)).getTime()
-  ));
-  return Math.floor((end - start) / dayMultiplier);
-};
 const countrySources = {
   stJohns: 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
   owid: 'https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/ecdc/total_deaths.csv',
@@ -81,20 +11,12 @@ const Deaths = {};
 const Cases = {};
 const Ratio = {};
 
-const matrixify = txt => txt.split('\n').map(t => t.split(','));
-const formatDate = date => {
-  if (date.includes('/')) {
-    const [m, d, y] = date.split('/');
-    return `20${[y, m.padStart(2, '0'), d.padStart(2, '0')].join('-')}`;
-  }
-  return date;
-};
-const getCsv = async url => matrixify(await fetch(`${url}?rand=${(new Date()).getTime()}`).then(r => r.text()));
-
 const states = {
   'California': 'ca',
   'Florida': 'fl',
   'Texas': 'tx',
+  'Kentucky': 'ky',
+  'Tennessee': 'tn',
   'New York': 'ny',
 };
 const baseObj = Object.values(states).reduce((t, c) => ({
@@ -243,7 +165,7 @@ const logScale = (value, fromEdge = 20, maxX = 400, maxY = 400) => {
   return (value / linearYScale) * multiplier;
 }
 
-let xMonths = 7;
+let xMonths = monthDiff(new Date(2020, 0, 1), new Date()) + 1;
 const xSpan = () => xMonths * 30;
 let ySpan = 7;
 
@@ -388,7 +310,6 @@ const fetchData = async () => {
 
 const importantDates = [
   [ fmtRealDate(new Date()), 'today' ],
-
   ['2021-12-01'],
   ['2021-11-01'],
   ['2021-10-01'],

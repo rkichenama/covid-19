@@ -348,6 +348,8 @@ body > * {
 .tx { --stroke: var(--shy-moment); }
 .ca { --stroke: var(--bright-yarrow); }
 .fl { --stroke: var(--orangeville); }
+.tn { --stroke: pink; }
+.ky { --stroke: beige; }
 :root {
   --american-river: #636e72;
   --bright-yarrow: #fdcb6e;
