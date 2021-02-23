@@ -6,6 +6,29 @@ const usSources = {
   nyt: 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv'
 };
 
+/*
+https://about-corona.net/
+https://corona-api.com/countries/us
+{
+  data: {
+    population
+    latest_data: {
+      deaths, confirmed, recovered, critical,
+      calculated: {
+        death_rate, recovery_rate, recovered_vs_death_ratio, cases_per_million_population
+      }
+    }
+    timeline: [
+      { date, deaths, confirmed, recovered, new_confirmed, new_recovered, new_deaths, active }
+    ]
+  }
+}
+https://disease.sh/docs/
+^
+*/
+
+
+
 let data = {};
 const Deaths = {};
 const Cases = {};
