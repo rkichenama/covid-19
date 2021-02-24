@@ -17,7 +17,7 @@ const Plot: React.FC<any> = () => {
       <VictoryChart {...{ theme }}
         width={550}
         height={300}
-        scale={{ x: 'time' }}
+        scale={{ x: 'time', y: 'log' }}
         containerComponent={
           <VictoryZoomContainer {...{ theme }}
             responsive={false}
@@ -47,7 +47,7 @@ const Plot: React.FC<any> = () => {
       <VictoryChart {...{ theme }}
         width={550}
         height={90}
-        scale={{ x: 'time' }}
+        scale={{ x: 'time', y: 'log' }}
         padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
         containerComponent={
           <VictoryBrushContainer {...{ theme }}
