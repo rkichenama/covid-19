@@ -46,3 +46,8 @@ interface JHUVaccineData {
   country: string,
   timeline: Record<string, BigInt>
 }
+
+interface ChartableData {
+  x: Date,
+  y: BigInt | number
+}

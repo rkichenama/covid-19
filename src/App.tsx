@@ -8,9 +8,9 @@ const Covid19: React.FC<any> = () => {
   const { data, loading, loaded, error } = useNytHistoryByState('new york');
   console.log({ loading, loaded, error })
   return (
-    <main>
+    <main style={{ display: 'contents' }}>
       <Plot />
-      <pre>
+      {/* <pre>
         <code>
           {
             !loading && loaded
@@ -18,7 +18,7 @@ const Covid19: React.FC<any> = () => {
               : ( 'Loading...' )
           }
         </code>
-      </pre>
+      </pre> */}
     </main>
   );
 };
