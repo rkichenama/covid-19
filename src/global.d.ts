@@ -51,3 +51,9 @@ interface ChartableData {
   x: Date,
   y: BigInt | number
 }
+
+interface DataSet {
+  name: string,
+  color: string,
+  data: ChartableData[]
+}

@@ -3,43 +3,46 @@ import { assign } from 'lodash';
 // *
 // * Colors
 // *
-const yellow200 = '#FFF59D';
-const deepOrange600 = '#F4511E';
-const lime300 = '#DCE775';
-const lightGreen500 = '#8BC34A';
-const teal700 = '#00796B';
-const cyan900 = '#006064';
-const colors = [
+export const yellow200 = '#FFF59D';
+export const deepOrange600 = '#F4511E';
+export const lime300 = '#DCE775';
+export const lightGreen500 = '#8BC34A';
+export const teal700 = '#00796B';
+export const cyan900 = '#006064';
+export const colors = [
   deepOrange600, yellow200, lime300, lightGreen500, teal700, cyan900
 ];
-const blueGrey50 = '#808080';
-const blueGrey300 = '#acacac';
-const blueGrey700 = '#ffffff';
+export const blueGrey50 = '#808080';
+export const blueGrey300 = '#acacac';
+export const blueGrey700 = '#ffffff';
 // const blueGrey50 = '#ECEFF1';
 // const blueGrey300 = '#90A4AE';
 // const blueGrey700 = '#455A64';
-const grey900 = '#131313';
+export const grey900 = '#131313';
 // const grey900 = '#212121';
 // *
 // * Typography
 // *
-const sansSerif = `'Helvetica Neue', 'Helvetica', sans-serif`;
-const letterSpacing = 'normal';
-const fontSize = 14;
+export const sansSerif = `'Helvetica Neue', 'Helvetica', sans-serif`;
+export const letterSpacing = 'normal';
+export const fontSize = 14;
 // const fontSize = 12;
 // *
 // * Layout
 // *
-const padding = 8;
-const baseProps = {
-  width: 350,
-  height: 350,
-  padding: 50
+export const padding = 8;
+export const baseProps = {
+  width: 360,
+  height: 360,
+  // padding: 50
+  padding: {
+    top: 48, bottom: 48, left: 48, right: 48
+  }
 };
 // *
 // * Labels
 // *
-const baseLabelStyles = {
+export const baseLabelStyles = {
   fontFamily: sansSerif,
   fontSize,
   letterSpacing,
@@ -49,13 +52,13 @@ const baseLabelStyles = {
   strokeWidth: 0
 };
 
-const centeredLabelStyles = assign({ textAnchor: 'middle' }, baseLabelStyles);
+export const centeredLabelStyles = assign({ textAnchor: 'middle' }, baseLabelStyles);
 // *
 // * Strokes
 // *
-const strokeDasharray = '10, 5';
-const strokeLinecap = 'round';
-const strokeLinejoin = 'round';
+export const strokeDasharray = '10, 5';
+export const strokeLinecap = 'round';
+export const strokeLinejoin = 'round';
 
 export default {
   area: assign(
@@ -277,7 +280,10 @@ export default {
           stroke: 'transparent',
           strokeWidth: 0
         },
-        labels: assign({}, baseLabelStyles, { padding: 5, pointerEvents: 'none' }),
+        labels: assign({}, baseLabelStyles, {
+          padding: 5, pointerEvents: 'none',
+          fill: grey900
+        }),
         flyout: {
           stroke: grey900,
           strokeWidth: 1,

@@ -1,25 +1,29 @@
 import React from 'react';
-import Plot from './components/Plot';
-import './style.css';
+import Menu from './components/Menu';
+import Graph from './components/Graph';
+import { CovidProvider } from './data/context';
 
-import { useNytHistoryByState } from './hooks/diseases.sh';
-// https://formidable.com/open-source/victory/guides/brush-and-zoom/
+import './App.scss';
+
 const Covid19: React.FC<any> = () => {
-  const { data, loading, loaded, error } = useNytHistoryByState('new york');
-  console.log({ loading, loaded, error })
+  const [ type, setType ] = React.useState('cases' as ('deaths' | 'cases'));
+  const [ includeUS, toggleUS ] = React.useState(true);
+  const [ states, setStates ] = React.useState([
+    'New York',
+    'Texas',
+    'Florida',
+    'Kentucky',
+    'Tennessee',
+    'California',
+  ]);
+
   return (
-    <main style={{ display: 'contents' }}>
-      <Plot />
-      {/* <pre>
-        <code>
-          {
-            !loading && loaded
-              ? ( JSON.stringify(data, null, 2) )
-              : ( 'Loading...' )
-          }
-        </code>
-      </pre> */}
-    </main>
+    <CovidProvider>
+      <main style={{ display: 'contents' }}>
+        <Graph {...{ type, states, includeUS }} />
+        <Menu {...{ type, setType, includeUS, toggleUS, states, setStates }}/>
+      </main>
+    </CovidProvider>
   );
 };
 

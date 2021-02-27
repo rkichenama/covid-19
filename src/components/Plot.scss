@@ -1,0 +1,9 @@
+div.plot {
+  .VictoryContainer > svg {
+    transition: width 1s ease-in-out, height 1s ease-in-out;
+
+    rect[vector-effect][style*="fill: black"] {
+      fill: white !important;
+    }
+  }
+}
