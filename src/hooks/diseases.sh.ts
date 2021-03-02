@@ -55,11 +55,37 @@ export const useNytHistoryByState = (state: string, reload: number = 10) => {
 
 const StateColors = {
   'New York': '#008BC4', // celebration blue
-  'Texas': '#a04039', // firecracker
-  'Florida': '#e1bc8a', // royal gold
+  'Alabama': '#996633',
+  'Arizona': '#16256b',
+  'California': '#000080',
+  'Delaware': '#71a1a0',
+  'Florida': '#cc6500',
+  'Georgia': '#993366',
+  'Hawaii': '#f00c0f',
+  'Idaho': '#339966',
+  'Indiana': '#0000cc',
   'Kentucky': '#ffe39b', // roasted corn
-  'Tennessee': '#e39b96', // sunset pink
-  'California': '#26ad8d', // enchanted wells
+  'Louisiana': '#c41e3a',
+  'Maryland': '#336699',
+  'Massachusetts': '#0000ff',
+  'Minnesota': '#800080',
+  'Nevada': '#c0c0c0',
+  'New Hampshire': '#fa500',
+  'New Jersey': '#f0dc82',
+  'New Mexico': '#ffff00',
+  'North Carolina': '#cc0000',
+  'Ohio': '#0000ff',
+  'Oklahoma': '#008000',
+  'Oregon': '#ccac00',
+  'Pennsylvania': '#008800',
+  'South Carolina': '#00416a',
+  'South Dakota': '#ffd700',
+  'Tennessee': '#ff7f00',
+  'Texas': '#ff0000',
+  'Utah': '#ffcc33',
+  'Vermont': '#006400',
+  'West Virginia': '#cfb53b',
+  'Wyoming': '#a52a2a'
 };
 export const useNytHistoryChartByStates = (states: string[], type: 'deaths' | 'cases' = 'deaths', reload: number = 10) => {
   const [
