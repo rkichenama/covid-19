@@ -7,7 +7,7 @@ import { Actions } from '../data/reducer';
 const Menu: React.FC<any> = () => {
   const {
     dispatch,
-    type, includeUS, logScale, states
+    type, includeUS, logScale, states, deltas
   } = React.useContext(CovidContext);
   const [ isOpen, setOpen ] = React.useState(false);
 
@@ -16,15 +16,22 @@ const Menu: React.FC<any> = () => {
       <RadioOptions {...{
         type: type, onChange: (evt: any) => dispatch({ type: Actions.changeType, payload: evt?.target?.value || 'deaths' })
       }} />
-      <fieldset className='w2 as-table'>
-        <label className='w6'>
+      <fieldset className='w4 as-table'>
+        <label className='w4'>
+          <input type='checkbox'
+            checked={deltas}
+            onChange={(evt: any) => dispatch({ type: Actions.toggleDeltas, payload: !deltas })}
+          />
+          Show Deltas
+        </label>
+        <label className='w4'>
           <input type='checkbox'
             checked={includeUS}
             onChange={(evt: any) => dispatch({ type: Actions.includeUS, payload: !includeUS })}
           />
           Include US
         </label>
-        <label className='w6'>
+        <label className='w4'>
           <input type='checkbox'
             checked={logScale}
             onChange={(evt: any) => dispatch({ type: Actions.toggleScale, payload: !logScale })}

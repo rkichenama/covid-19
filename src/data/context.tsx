@@ -5,7 +5,8 @@ export type CovidState = {
   type: 'cases' | 'deaths',
   includeUS: boolean,
   states: string[],
-  logScale: boolean
+  logScale: boolean,
+  deltas: boolean
 }
 interface CovidType extends CovidState {
   dispatch?: React.Dispatch<MenuAction>
@@ -15,6 +16,7 @@ const defaultValue = {
   type: 'deaths',
   includeUS: true,
   logScale: false,
+  deltas: false,
   states: [
     'New York',
     'Texas',

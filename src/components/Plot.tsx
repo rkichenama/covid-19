@@ -17,7 +17,7 @@ import {
 import { format as d3Format } from 'd3-format';
 import theme, { baseProps } from '../data/victory-theme';
 import CovidContext from '../data/context';
-import { chartableDiseaseData, monthYear, shortDate, mediumDate } from '../data/transforms';
+import { chartableDiseaseData, monthYear, shortDate, mediumDate, asDate } from '../data/transforms';
 import { useContainerSize } from '../hooks/dom';
 import { compareAsc, isWithinInterval, Interval } from 'date-fns'
 import debounce from 'lodash/debounce';
@@ -34,7 +34,7 @@ const Plot: React.FC<PlotProps> = ({
   const { logScale } = React.useContext(CovidContext);
   const ref = React.useRef(undefined as HTMLDivElement);
   const { width, height } = useContainerSize(ref);
-
+console.log({ importantDates })
   return (
     <div className='plot x1 y2 w12 h11' {...{ ref }}>
       {
@@ -57,7 +57,11 @@ const Plot: React.FC<PlotProps> = ({
 
               }
             >
-              <VictoryLegend {...{ theme }} /* x={125} y={10} */
+              <VictoryLegend {...{ theme }} x={96} /* y={10} */
+                style={{
+                  data: { stroke: 'white' },
+                  border: { stroke: 'white' }
+                }}
                 name='legend'
                 orientation="horizontal"
                 gutter={20}
@@ -74,13 +78,24 @@ const Plot: React.FC<PlotProps> = ({
                 offsetX={64}
               />
               {
+                importantDates.map(date => (
+                  <VictoryLine key={date}
+                    samples={2}
+                    x={() => asDate(date)}
+                    style={{
+                      data: { stroke: 'rgba(255, 0, 0, 0.5)' },
+                    }}
+                  />
+                ))
+              }
+              {
                 datasets.map(({ name, data, color }) => (
                   <VictoryLine key={name} {...{ theme, name }}
                     style={{
                       data: { stroke: color },
                     }}
                     data={data}
-                    interpolation={'natural'}
+                    interpolation={'monotoneX'}
                   />
                 ))
               }

@@ -14,7 +14,7 @@ const DateFormats = {
   shortDate: { year: '2-digit', month: '2-digit', day: '2-digit' },
   monthYear: { year: 'numeric', month: 'short' },
 } as Record<string, Intl.DateTimeFormatOptions>;
-const asDate = (date: string | Date) => (
+export const asDate = (date: string | Date) => (
   date instanceof Date
     ? date
     : parseISO(date)

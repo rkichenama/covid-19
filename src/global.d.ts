@@ -1,3 +1,5 @@
+declare const importantDates: string[];
+
 interface NavigatorLanguage {
   userLanguage?: string;
   browserLanguage?: string;
@@ -5,9 +7,9 @@ interface NavigatorLanguage {
 
 interface DiseasesData {
   date: string,
-  cases: BigInt,
-  deaths: BigInt,
-  updated: BigInt
+  cases: number,
+  deaths: number,
+  updated: number
 }
 
 interface NYTStateData extends DiseasesData {
@@ -21,8 +23,8 @@ interface NYTCountryData extends DiseasesData {
 }
 
 interface DiseasesTimeline {
-  cases: Record<string, BigInt>,
-  deaths: Record<string, BigInt>
+  cases: Record<string, number>,
+  deaths: Record<string, number>
 }
 interface DiseasesCoords {
   latitude: string,
@@ -35,21 +37,21 @@ interface JHUCountryByCountyData {
   county: string,
   updatedAt: string,
   stats: {
-    confirmed: BigInt,
-    deaths: BigInt,
-    recovered: BigInt
+    confirmed: number,
+    deaths: number,
+    recovered: number
   },
   coordinates: DiseasesCoords
 }
 
 interface JHUVaccineData {
   country: string,
-  timeline: Record<string, BigInt>
+  timeline: Record<string, number>
 }
 
 interface ChartableData {
   x: Date,
-  y: BigInt | number
+  y: number
 }
 
 interface DataSet {

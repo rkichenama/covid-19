@@ -11,18 +11,20 @@ export const Actions = {
   changeType: 'changeType',
   toggleScale: 'toggleScale',
   includeUS: 'includeUS',
-  upStates: 'upStates'
+  upStates: 'upStates',
+  toggleDeltas: 'toggleDeltas'
 };
 const Mutations = {
   [Actions.changeType]: (state: CovidState, { payload }: MenuAction) => ({ ...state, type: payload as string }),
   [Actions.toggleScale]: (state: CovidState, { payload }: MenuAction) => ({ ...state, logScale: payload as boolean }),
   [Actions.includeUS]: (state: CovidState, { payload }: MenuAction) => ({ ...state, includeUS: payload as boolean }),
+  [Actions.toggleDeltas]: (state: CovidState, { payload }: MenuAction) => ({ ...state, deltas: payload as boolean }),
   [Actions.upStates]: (state: CovidState, { payload }: MenuAction) => ({ ...state, states: payload as string[] })
 }
 
 const initializer = ({
-  type = 'deaths', includeUS = false, logScale = false, states = []
-}: CovidState) => ({ type, logScale, includeUS, states } as CovidState);
+  type = 'deaths', includeUS = false, logScale = false, states = [], deltas = false
+}: CovidState) => ({ type, logScale, includeUS, states, deltas } as CovidState);
 const reducer = (state, action) => {
   const mutation = Mutations[action.type];
   if (mutation) { return mutation(state, action); }
