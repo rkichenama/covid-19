@@ -68,14 +68,16 @@ label.fancy {
   }
 }
 button {
-  background: rgba(0, 0, 0, 0.8);
+  position: relative;
+  background: #333333;
   border: none;
   width: 100%;
-  filter: drop-shadow(0px 0px 1px black);
-  padding: 4px 6px;
+  // filter: drop-shadow(0px 0px 1px black);
+  padding: 8px 12px;
   cursor: pointer;
   color: white;
   font-family: Roboto, Arial;
+  @include fauxShadow;
 
   &[disabled] {
     &:before, &:after {
@@ -110,3 +112,9 @@ svg {
 input,
 textarea,
 video:focus { outline: none; }
+
+fieldset {
+  border-color: #{$loading-screen};
+  border-style: outset;
+  background-color: #{$contrast-screen};
+}

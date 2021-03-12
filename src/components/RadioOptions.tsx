@@ -1,4 +1,5 @@
 import React from 'react';
+import { RadioBox } from './RadioBox';
 
 interface RadioOptionsProps {
   type?: 'deaths' | 'cases',
@@ -12,17 +13,33 @@ const RadioOptions: React.FC<RadioOptionsProps> = ({
 }) => {
 
   return (
-    <fieldset className='w2 as-table'>
-      <label className='w6 align-center'>
+    <fieldset className='radio-options w2 as-table'>
+      {/* <label className='w6 align-center'>
         <input name={`${'radio'}-option`} type={'radio'} value={'deaths'} checked={type === 'deaths'} {...{ onChange }}
         />
         <span>Deaths</span>
-      </label>
-      <label className='w6 align-center'>
+      </label> */}
+      <RadioBox {...{
+        onChange,
+        className: 'w6 align-center',
+        name: 'radio-option',
+        value: 'deaths',
+        label: 'Deaths',
+        checked: type === 'deaths',
+      }} />
+      <RadioBox {...{
+        onChange,
+        className: 'w6 align-center',
+        name: 'radio-option',
+        value: 'cases',
+        label: 'Cases',
+        checked: type === 'cases',
+      }} />
+      {/* <label className='w6 align-center'>
         <input name={`${'radio'}-option`} type={'radio'} value={'cases'} checked={type === 'cases'} {...{ onChange }}
         />
         <span>Cases</span>
-      </label>
+      </label> */}
     </fieldset>
   );
 };
