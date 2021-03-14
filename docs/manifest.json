@@ -1,0 +1,7 @@
+{
+  "script.css": "autoscript.css",
+  "script.js": "autoscript.js",
+  "vendors.js": "autovendors.js",
+  "service-worker.js": "autoservice-worker.js",
+  "index.html": "autoindex.html"
+}
