@@ -1,4 +1,5 @@
 declare const importantDates: string[];
+declare const skipWaiting: Function;
 
 interface NavigatorLanguage {
   userLanguage?: string;

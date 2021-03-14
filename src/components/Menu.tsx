@@ -58,17 +58,16 @@ const Menu: React.FC<any> = () => {
           Log Scale
         </label> */}
       </fieldset>
-      <div className='w2'>
-        <button onClick={() => setOpen(true)}>select states</button>
-        {
-          isOpen ? (
-            <SelectState {...{ states, setOpen, setStates: a => {
-              console.log(a)
-              dispatch({ type: Actions.upStates, payload: a })
-            } }}/>
-          ) : null
-        }
-      </div>
+      <button className='w2' onClick={() => setOpen(true)}>select states</button>
+      {
+        isOpen ? (
+          <SelectState {...{ states, setOpen, setStates: a => {
+            console.log(a)
+            dispatch({ type: Actions.upStates, payload: a })
+          } }}/>
+        ) : null
+      }
+      <div id='portal' className='x10 w3'></div>
     </div>
   );
 };

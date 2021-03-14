@@ -1,5 +1,6 @@
 // https://formidable.com/open-source/victory/guides/brush-and-zoom/
 import React from 'react';
+import { render } from 'react-dom';
 import {
   VictoryChart,
   VictoryCursorContainer,
@@ -24,6 +25,19 @@ import debounce from 'lodash/debounce';
 
 import './Plot.scss';
 
+const portal = (date, desc) => {
+  render(
+    <div style={{ fontSize: '0.8em' }}>
+      [{ shortDate(date) }]:{' '}
+      { desc }
+    </div>,
+    document.getElementById('portal')
+  );
+  // document.getElementById('portal').innerHTML = `
+  //   ${}: $
+  // `;
+};
+
 interface PlotProps {
   datasets: DataSet[]
 }
@@ -34,7 +48,7 @@ const Plot: React.FC<PlotProps> = ({
   const { logScale } = React.useContext(CovidContext);
   const ref = React.useRef(undefined as HTMLDivElement);
   const { width, height } = useContainerSize(ref);
-console.log({ importantDates })
+
   return (
     <div className='plot x1 y2 w12 h11' {...{ ref }}>
       {
@@ -49,7 +63,14 @@ console.log({ importantDates })
               containerComponent={
                 <VictoryVoronoiContainer {...{ theme }}
                   // mouseFollowTooltips
-                  labels={({ datum }) => `[${mediumDate(datum.x)}]: ${d3Format(',.0d')(datum.y)}`}
+                  labels={({ datum }) => {
+                    const lbl = mediumDate(datum.x);
+                    if (lbl === 'Invalid Date') {
+                      return null;
+                    } else {
+                      return `[${mediumDate(datum.x)}]: ${d3Format(',.0d')(datum.y)}`
+                    }
+                  }}
                   labelComponent={
                     <VictoryTooltip  {...{ theme }} constrainToVisibleArea />
                   }
@@ -78,15 +99,33 @@ console.log({ importantDates })
                 offsetX={64}
               />
               {
-                importantDates.map(date => (
-                  <VictoryLine key={date}
-                    samples={2}
-                    x={() => asDate(date)}
-                    style={{
-                      data: { stroke: 'rgba(255, 0, 0, 0.5)' },
-                    }}
-                  />
-                ))
+                Object.entries(importantDates).map(([ date, desc ]) => {
+                  const day = asDate(date);
+                  return (
+                    <VictoryLine key={date}
+                      samples={2}
+                      x={() => day}
+                      style={{ data: { stroke: 'rgba(255, 0, 0, 0.5)', strokeWidth: '2px' } }}
+                      events={[{
+                        target: 'data',
+                        eventHandlers: {
+                          onClick: () => {
+                            portal(date, desc);
+                            return [];
+                          // },
+                          // onMouseEnter: () => {
+                          //   console.log('enter', desc);
+                          //   return [];
+                          // },
+                          // onMouseLeave: () => {
+                          //   console.log('leave', desc);
+                          //   return [];
+                          },
+                        }
+                      }]}
+                    />
+                  );
+                })
               }
               {
                 datasets.map(({ name, data, color }) => (

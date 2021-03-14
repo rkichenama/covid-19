@@ -93,6 +93,9 @@ button {
       -1px -1px 0px white,
       -1px 1px 0px white;
   }
+  &.primary {
+    background-color: var(--accent-clr);
+  }
   &:after, &:before {
     content: '';
     position: absolute;
