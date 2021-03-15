@@ -37,6 +37,7 @@
     "@types/react-select": "^4.0.13",
     "@types/victory": "^33.1.4",
     "axios": "^0.21.1",
+    "copy-webpack-plugin": "^8.0.0",
     "css-loader": "^5.0.2",
     "d3-format": "^1.4.5",
     "date-fns": "^2.17.0",
@@ -58,6 +59,7 @@
     "webpack": "^5.24.1",
     "webpack-cli": "^4.5.0",
     "workbox-background-sync": "^6.1.1",
+    "workbox-build": "^6.1.1",
     "workbox-expiration": "^6.1.1",
     "workbox-precaching": "^6.1.1",
     "workbox-routing": "^6.1.1",
@@ -65,6 +67,8 @@
   },
   "devDependencies": {
     "webpack-dev-server": "^3.11.2",
+    "webpack-manifest-plugin": "^3.1.0",
+    "webpack-nano": "^1.1.1",
     "workbox-webpack-plugin": "^6.1.1",
     "workbox-window": "^6.1.1"
   }

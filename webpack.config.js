@@ -2,9 +2,12 @@
 const { resolve, join } = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const pkg = require('./package.json');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const webpack = require('webpack');
+
+let manifest = [];
 
 module.exports = {
   devServer: {
@@ -82,13 +85,26 @@ module.exports = {
     // }),
     new WorkboxPlugin.InjectManifest({
       swSrc: './src/worker.ts',
-      swDest: 'service-worker.js'
+      swDest: 'service-worker.js',
+      include: [
+        'img/*.png'
+      ]
+      // manifestTransform: (entry) => {manifest.push(entry); return entry;}
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
       ignoreOrder: false,
-    })
+    }),
+    new CopyPlugin({
+      patterns: [
+        './img/**/*.png',
+        './manifest.json'
+      ],
+    }),
+    // { apply(compiler) {
+    //   console.log(manifest)
+    // }}
   ],
   optimization: {
     splitChunks: {
