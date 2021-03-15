@@ -1,14 +1,11 @@
 import { precacheAndRoute } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing/registerRoute';
-import { NetworkFirst } from 'workbox-strategies/NetworkFirst';
 import { CacheFirst } from 'workbox-strategies/CacheFirst';
 import { ExpirationPlugin } from 'workbox-expiration/ExpirationPlugin';
 
 const manifest = (self as any).__WB_MANIFEST;
 console.log('manifest', manifest)
 precacheAndRoute(manifest);
-
-// workbox.precaching.precacheAndRoute(self.__precacheManifest);
 
 addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {

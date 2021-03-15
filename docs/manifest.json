@@ -34,11 +34,11 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": "/?launch=pwa",
+  "start_url": "./index.html",
+  "scope": ".",
   "background_color": "#000000",
   "display": "standalone",
   "orientation": "landscape",
-  "scope": "/",
   "theme_color": "#131313",
   "categories": ["health", "technology", "web"]
 }
