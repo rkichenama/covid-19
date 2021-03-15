@@ -1,9 +1,12 @@
 import { precacheAndRoute } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing/registerRoute';
 import { NetworkFirst } from 'workbox-strategies/NetworkFirst';
+import { CacheFirst } from 'workbox-strategies/CacheFirst';
 import { ExpirationPlugin } from 'workbox-expiration/ExpirationPlugin';
 
-precacheAndRoute((self as any).__WB_MANIFEST);
+const manifest = (self as any).__WB_MANIFEST;
+console.log('manifest', manifest)
+precacheAndRoute(manifest);
 
 // workbox.precaching.precacheAndRoute(self.__precacheManifest);
 
@@ -20,7 +23,7 @@ addEventListener('message', event => {
 ].forEach(([ pathRegex, cacheName ]: [ RegExp, string ]) => {
   registerRoute(
     pathRegex,
-    new NetworkFirst({
+    new CacheFirst({
       cacheName,
       plugins: [
         new ExpirationPlugin({

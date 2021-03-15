@@ -83,18 +83,21 @@ module.exports = {
     //   clientsClaim: true,
     //   skipWaiting: true,
     // }),
-    new WorkboxPlugin.InjectManifest({
-      swSrc: './src/worker.ts',
-      swDest: 'service-worker.js',
-      include: [
-        'img/*.png'
-      ]
-      // manifestTransform: (entry) => {manifest.push(entry); return entry;}
-    }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
       ignoreOrder: false,
+    }),
+    new WorkboxPlugin.InjectManifest({
+      swSrc: './src/worker.ts',
+      swDest: 'service-worker.js',
+      // include: [
+      //   'img/*.png'
+      // ],
+      manifestTransforms: [(manifest) => {
+        console.log({manifest})
+        return { manifest };
+      }]
     }),
     new CopyPlugin({
       patterns: [
