@@ -13,7 +13,7 @@ const RadioOptions: React.FC<RadioOptionsProps> = ({
 }) => {
 
   return (
-    <fieldset className='radio-options w2 as-table'>
+    <fieldset className='radio-options w2 as-grid one-row'>
       {/* <label className='w6 align-center'>
         <input name={`${'radio'}-option`} type={'radio'} value={'deaths'} checked={type === 'deaths'} {...{ onChange }}
         />
