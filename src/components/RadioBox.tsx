@@ -8,7 +8,7 @@ interface RadioBoxProps {
   checked?: boolean,
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
   value?: string,
-  label?: string,
+  label?: any,
 }
 
 const Factory = (type: 'radio' | 'checkbox') => (

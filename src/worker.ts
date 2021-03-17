@@ -15,7 +15,7 @@ addEventListener('message', event => {
 
 [
   [/https\:\/\/disease.sh\/v3\/covid-19\//i, 'disease.sh'],
-  [/https\:\/\/fonts.googleapis.com\//i, 'googleAssets'],
+  // [/https\:\/\/fonts.googleapis.com\//i, 'googleAssets'],
   [/https\:\/\/fonts.gstatic.com\//i, 'googleFonts']
 ].forEach(([ pathRegex, cacheName ]: [ RegExp, string ]) => {
   registerRoute(

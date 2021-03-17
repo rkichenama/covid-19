@@ -24,7 +24,7 @@ const RadioOptions: React.FC<RadioOptionsProps> = ({
         className: 'w6 align-center',
         name: 'radio-option',
         value: 'deaths',
-        label: (<span class='material-icons' title='Deaths'>person_remove</span>),
+        label: (<span className='material-icons' title='Deaths'>person_remove</span>),
         checked: type === 'deaths',
       }} />
       <RadioBox {...{
