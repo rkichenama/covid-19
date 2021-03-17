@@ -21,7 +21,7 @@ const Menu: React.FC<any> = () => {
       }} />
       <fieldset className='w4 as-grid one-row'>
         <CheckBox {...{
-          className: 'w4',
+          className: 'w4 align-center',
           checked: deltas,
           label: (<span class='material-icons' title='Show Deltas'>compare</span>),
           onChange: (evt: any) => dispatch({ type: Actions.toggleDeltas, payload: !deltas })
@@ -34,7 +34,7 @@ const Menu: React.FC<any> = () => {
           Show Deltas
         </label> */}
         <CheckBox {...{
-          className: 'w4',
+          className: 'w4 align-center',
           checked: includeUS,
           label: (<span class='material-icons' title='Include US'>plus_one</span>),
           onChange: (evt: any) => dispatch({ type: Actions.includeUS, payload: !includeUS })
@@ -47,7 +47,7 @@ const Menu: React.FC<any> = () => {
           Include US
         </label> */}
         <CheckBox {...{
-          className: 'w4',
+          className: 'w4 align-center',
           checked: logScale,
           label: (<span class='material-icons' title='Log Scale'>search</span>),
           onChange: (evt: any) => dispatch({ type: Actions.toggleScale, payload: !logScale })
