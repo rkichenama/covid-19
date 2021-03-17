@@ -19,7 +19,7 @@ const Menu: React.FC<any> = () => {
       <RadioOptions {...{
         type: type, onChange: (evt: any) => dispatch({ type: Actions.changeType, payload: evt?.target?.value || 'deaths' })
       }} />
-      <fieldset className='w4 as-table'>
+      <fieldset className='w4 as-grid one-row'>
         <CheckBox {...{
           className: 'w4',
           checked: deltas,
