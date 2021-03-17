@@ -15,7 +15,7 @@ const Menu: React.FC<any> = () => {
   const [ isOpen, setOpen ] = React.useState(false);
 
   return (
-    <div className='x1 y1 w12 h1 as-grid one-row'>
+    <div id='one-menu' className='x1 y1 w12 h1 as-grid one-row'>
       <RadioOptions {...{
         type: type, onChange: (evt: any) => dispatch({ type: Actions.changeType, payload: evt?.target?.value || 'deaths' })
       }} />
