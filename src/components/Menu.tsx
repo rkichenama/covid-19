@@ -5,6 +5,8 @@ import SelectState from './SelectState';
 import CovidContext from '../data/context';
 import { Actions } from '../data/reducer';
 
+import './Menu.scss';
+
 const Menu: React.FC<any> = () => {
   const {
     dispatch,
