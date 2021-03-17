@@ -109,18 +109,14 @@ const Plot: React.FC<PlotProps> = ({
                       events={[{
                         target: 'data',
                         eventHandlers: {
-                          onClick: () => {
+                          // onClick: () => {
+                          // },
+                          onMouseEnter: () => {
                             portal(date, desc);
-                            return [];
-                          // },
-                          // onMouseEnter: () => {
-                          //   console.log('enter', desc);
-                          //   return [];
-                          // },
-                          // onMouseLeave: () => {
-                          //   console.log('leave', desc);
-                          //   return [];
+                            return [];                          
                           },
+                          // onMouseLeave: () => {
+                          // },
                         }
                       }]}
                     />
