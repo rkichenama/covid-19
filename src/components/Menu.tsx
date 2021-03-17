@@ -21,7 +21,7 @@ const Menu: React.FC<any> = () => {
         <CheckBox {...{
           className: 'w4',
           checked: deltas,
-          label: 'Show Deltas',
+          label: (<span class='material-icons' title='Show Deltas'>compare</span>),
           onChange: (evt: any) => dispatch({ type: Actions.toggleDeltas, payload: !deltas })
         }} />
         {/* <label className='w4'>
@@ -34,7 +34,7 @@ const Menu: React.FC<any> = () => {
         <CheckBox {...{
           className: 'w4',
           checked: includeUS,
-          label: 'Include US',
+          label: (<span class='material-icons' title='Include US'>plus_one</span>),
           onChange: (evt: any) => dispatch({ type: Actions.includeUS, payload: !includeUS })
         }} />
         {/* <label className='w4'>
@@ -47,7 +47,7 @@ const Menu: React.FC<any> = () => {
         <CheckBox {...{
           className: 'w4',
           checked: logScale,
-          label: 'Log Scale',
+          label: (<span class='material-icons' title='Log Scale'>search</span>),
           onChange: (evt: any) => dispatch({ type: Actions.toggleScale, payload: !logScale })
         }} />
         {/* <label className='w4'>
