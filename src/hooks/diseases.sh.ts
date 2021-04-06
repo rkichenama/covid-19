@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useReducer, useCallback } from 'react';
+import { useEffect, useLayoutEffect, useState, useReducer, useCallback } from 'react';
 import { nytHistoryByState, nytHistoryUS } from '../data/disease.sh';
 import { chartableDiseaseData } from '../data/transforms';
 import { useInterval } from './time';
@@ -77,66 +77,77 @@ const StateColors = {
   'West Virginia': '#cfb53b',
   'Wyoming': '#a52a2a'
 };
-export const useNytHistoryChartByStates = (states: string[], type: 'deaths' | 'cases' = 'deaths', reload: number = 10) => {
+
+const useNytHistoryByState = (reload: number, states: string[]) => {
   const [
-    { data, loading, loaded, error }, dispatch
-  ] = useReducer<FetchingReducer<DataSet>, FetchingState<DataSet>>(
-    mergeReducer, undefined, initializer<DataSet>()
+    state, dispatch
+  ] = useReducer<FetchingReducer<NYTStateData[]>, FetchingState<NYTStateData[]>>(
+    mergeReducer, undefined, initializer<NYTStateData[]>()
   );
 
-  const fetch = async (states: string[], type: 'deaths' | 'cases', dispatchCopy: Function) => {
-    dispatchCopy && dispatchCopy({
-      loading: true, loaded: false, error: undefined, data: []
+  useInterval(reload * 60, useCallback(async () => {
+    dispatch({
+      ...state,
+      loading: true, loaded: false, error: undefined
     });
-    const list = await Promise.all(
-      states.map(
-        state => nytHistoryByState(state)
-          .then(stateData => ({
-            name: state,
-            color: StateColors[state] || 'lightgray',
-            data: chartableDiseaseData(stateData)(type)
-          } as DataSet))
-      )
-    )
-    dispatchCopy && dispatchCopy({
+    const list = await Promise.all(states.map(state => nytHistoryByState(state)));
+    dispatch({
+      ...state,
       loading: false, loaded: true, error: undefined,
       data: list
     });
-  };
-  const doFetch = useCallback(() => {
-    fetch(states, type, dispatch);
-  }, [ states.sort().join('|'), type, dispatch ]);
-  useInterval(reload * 60, doFetch);
+  }, [ dispatch ]));
 
-  return { datasets: data, loading, loaded, error };
+  return state;
+};
+export const useNytHistoryChartByStates = (states: string[], type: 'deaths' | 'cases' = 'deaths', reload: number = 10) => {
+  const { data, loading, loaded, error } = useNytHistoryByState(reload, states);
+  const [ chartData, setChartData ] = useState([] as DataSet[]);
+
+  useEffect(() => {
+    setChartData(states.map((state, idx) => ({
+      name: state,
+      color: StateColors[state] || 'lightgray',
+      data: chartableDiseaseData(data[idx])(type)
+    } as DataSet)));
+  }, [ data, type ]);
+
+  return { datasets: chartData, loading, loaded, error };
 }
 
-export const useNytUSHistoryChart = (type: 'deaths' | 'cases' = 'deaths', reload: number = 10) => {
+const useNytUSHistory = (reload: number) => {
   const [
-    { data, loading, loaded, error }, dispatch
-  ] = useReducer<FetchingReducer<DataSet>, FetchingState<DataSet>>(
-    mergeReducer, undefined, initializer<DataSet>()
+    state, dispatch
+  ] = useReducer<FetchingReducer<NYTCountryData>, FetchingState<NYTCountryData>>(
+    mergeReducer, undefined, initializer<NYTCountryData>()
   );
-  const fetch = (type: 'deaths' | 'cases') => {
-    dispatch({
-      loading: true, loaded: false, error: undefined, data: []
-    });
-    nytHistoryUS()
-      .then(
-        list => { dispatch({
-          loading: false, loaded: true, error: undefined,
-          data: [{
-            name: 'United States',
-            color: 'cyan',
-            data: chartableDiseaseData(list)(type)
-          } as DataSet]
-        }); }
-      );
-  };
-  const doFetch = useCallback(() => {
-    fetch(type);
-  }, [ type ]);
-  useInterval(reload * 60, doFetch);
 
-  return { data, loading, loaded, error };
+  useInterval(reload * 60, useCallback(async () => {
+    dispatch({
+      ...state,
+      loading: true, loaded: false, error: undefined
+    });
+    const list = await nytHistoryUS();
+    dispatch({
+      ...state,
+      loading: false, loaded: true, error: undefined,
+      data: list
+    });
+  }, [ dispatch ]));
+
+  return state;
+};
+export const useNytUSHistoryChart = (type: 'deaths' | 'cases' = 'deaths', reload: number = 10) => {
+  const { data, loading, loaded, error } = useNytUSHistory(reload);
+  const [ chartData, setChartData ] = useState([] as DataSet[]);
+
+  useEffect(() => {
+    setChartData([{
+      name: 'United States',
+      color: 'cyan',
+      data: chartableDiseaseData(data)(type)
+    } as DataSet]);
+  }, [ data, type ]);
+
+  return { data: chartData, loading, loaded, error };
 }

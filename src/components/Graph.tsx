@@ -36,12 +36,12 @@ const Graph: React.FC<any> = () => {
     if (datasets.length) { data.push.apply(data, datasets); }
     if (includeUS && US.data.length) { data.push.apply(data, US.data); }
     return transformAsDeltas(deltas, data);
-  }, [ !loading && loaded, !US.loading && US.loaded, includeUS, deltas ]);
+  }, [ type, datasets, US.data, includeUS, deltas ]);
 
   return (
     error
       ? (error.toString())
-      : !loading && loaded
+      : !(loading || (includeUS ? US.loading : includeUS))
         ? (<Plot {...{ datasets: sets }}/>)
         : ('Loading...')
   );
