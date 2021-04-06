@@ -1,7 +1,7 @@
 import { parseISO } from 'date-fns';
 import sortBy from 'lodash/sortBy';
 
-export const chartableDiseaseData = (list: DiseasesData[]) => (field: ('cases' | 'deaths')) => {
+export const chartableDiseaseData = (list: DiseasesData[] = []) => (field: ('cases' | 'deaths')) => {
   return sortBy<ChartableData[]>(
     list.map(({ date, [field]: value }) => ({ x: parseISO(date), y: value })),
     [ ({ x }: ChartableData) => x ]

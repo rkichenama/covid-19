@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useReducer } from 'react';
+import { useEffect, useLayoutEffect, useReducer, useCallback } from 'react';
 import { nytHistoryByState, nytHistoryUS } from '../data/disease.sh';
 import { chartableDiseaseData } from '../data/transforms';
 import { useInterval } from './time';
@@ -19,39 +19,29 @@ const initializer = <T extends any>() => () => ({
   error: undefined
 } as FetchingState<T>);
 
-export const useNytHistoryByState = (state: string, reload: number = 10) => {
-  const [
-    { data, loading, loaded, error }, dispatch
-  ] = useReducer<FetchingReducer<NYTStateData>, FetchingState<NYTStateData>>(
-    mergeReducer, undefined, initializer<NYTStateData>()
-  );
-  const updates = useInterval(reload * 60);
-  const fetch = (state: string) => {
-    dispatch({
-      loading: true, loaded: false, error: undefined, data: []
-    });
-    nytHistoryByState(state)
-      .then(
-        list => { dispatch({
-          loading: false, loaded: true, error: undefined,
-          data: list
-        }); }
-      );
-  };
+// export const useNytHistoryByState = (state: string, reload: number = 10) => {
+//   const [
+//     { data, loading, loaded, error }, dispatch
+//   ] = useReducer<FetchingReducer<NYTStateData>, FetchingState<NYTStateData>>(
+//     mergeReducer, undefined, initializer<NYTStateData>()
+//   );
+//   const fetch = (state: string) => {
+//     dispatch({ loading: true, loaded: false, error: undefined, data: [] });
+//     nytHistoryByState(state)
+//       .then(
+//         list => { dispatch({
+//           loading: false, loaded: true, error: undefined,
+//           data: list
+//         }); }
+//       );
+//   };
+//   const doFetch = useCallback(() => {
+//     fetch(state);
+//   }, [ state ]);
+//   useInterval(reload * 60, doFetch);
 
-  useEffect(() => {
-    if (state) {
-      fetch(state);
-    }
-  }, [ state ]);
-  useLayoutEffect(() => {
-    if (state && updates) {
-      fetch(state);
-    }
-  }, [ state, updates ]);
-
-  return { data, loading, loaded, error };
-}
+//   return { data, loading, loaded, error };
+// }
 
 const StateColors = {
   'New York': '#008BC4', // celebration blue
@@ -93,9 +83,11 @@ export const useNytHistoryChartByStates = (states: string[], type: 'deaths' | 'c
   ] = useReducer<FetchingReducer<DataSet>, FetchingState<DataSet>>(
     mergeReducer, undefined, initializer<DataSet>()
   );
-  const updates = useInterval(reload * 60);
 
   const fetch = async (states: string[], type: 'deaths' | 'cases', dispatchCopy: Function) => {
+    dispatchCopy && dispatchCopy({
+      loading: true, loaded: false, error: undefined, data: []
+    });
     const list = await Promise.all(
       states.map(
         state => nytHistoryByState(state)
@@ -111,32 +103,11 @@ export const useNytHistoryChartByStates = (states: string[], type: 'deaths' | 'c
       data: list
     });
   };
+  const doFetch = useCallback(() => {
+    fetch(states, type, dispatch);
+  }, [ states.sort().join('|'), type, dispatch ]);
+  useInterval(reload * 60, doFetch);
 
-
-  useEffect(() => {
-    let dispatchCopy = dispatch;
-    if (states.length) {
-      dispatchCopy && dispatchCopy({
-        loading: true, loaded: false, error: undefined, data: []
-      });
-      fetch(states, type, dispatchCopy);
-    }
-    return () => {
-      dispatchCopy = undefined;
-    };
-  }, [ states.sort().join('|'), type ]);
-  useLayoutEffect(() => {
-    let dispatchCopy = dispatch;
-    if (states.length && updates) {
-      dispatchCopy && dispatchCopy({
-        loading: true, loaded: false, error: undefined, data: []
-      });
-      fetch(states, type, dispatchCopy);
-    }
-    return () => {
-      dispatchCopy = undefined;
-    };
-  }, [ states.sort().join('|'), type, updates ]);
   return { datasets: data, loading, loaded, error };
 }
 
@@ -146,7 +117,6 @@ export const useNytUSHistoryChart = (type: 'deaths' | 'cases' = 'deaths', reload
   ] = useReducer<FetchingReducer<DataSet>, FetchingState<DataSet>>(
     mergeReducer, undefined, initializer<DataSet>()
   );
-  const updates = useInterval(reload * 60);
   const fetch = (type: 'deaths' | 'cases') => {
     dispatch({
       loading: true, loaded: false, error: undefined, data: []
@@ -163,15 +133,10 @@ export const useNytUSHistoryChart = (type: 'deaths' | 'cases' = 'deaths', reload
         }); }
       );
   };
-
-  useEffect(() => {
+  const doFetch = useCallback(() => {
     fetch(type);
   }, [ type ]);
-  useLayoutEffect(() => {
-    if (updates) {
-      fetch(type);
-    }
-  }, [ type, updates ]);
+  useInterval(reload * 60, doFetch);
 
   return { data, loading, loaded, error };
 }
