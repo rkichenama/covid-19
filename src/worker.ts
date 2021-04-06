@@ -4,7 +4,7 @@ import { CacheFirst } from 'workbox-strategies/CacheFirst';
 import { ExpirationPlugin } from 'workbox-expiration/ExpirationPlugin';
 
 const manifest = (self as any).__WB_MANIFEST;
-console.log('manifest', manifest)
+
 precacheAndRoute(manifest);
 
 addEventListener('message', event => {

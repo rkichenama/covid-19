@@ -64,7 +64,6 @@ const Menu: React.FC<any> = () => {
       {
         isOpen ? (
           <SelectState {...{ states, setOpen, setStates: a => {
-            console.log(a)
             dispatch({ type: Actions.upStates, payload: a })
           } }}/>
         ) : null
