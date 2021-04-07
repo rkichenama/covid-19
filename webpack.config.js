@@ -7,8 +7,6 @@ const pkg = require('./package.json');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const webpack = require('webpack');
 
-let manifest = [];
-
 module.exports = {
   devServer: {
     contentBase: join(__dirname, 'dist'),
@@ -65,9 +63,6 @@ module.exports = {
     extensions: [ '.tsx', '.ts', '.js', '.mjs' ],
   },
   plugins: [
-    // new webpack.DefinePlugin({
-    //   __VERSION__: JSON.stringify(pkg.version)
-    // }),
     new HtmlWebpackPlugin({
       meta: {
         viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'
@@ -77,12 +72,6 @@ module.exports = {
       minify: { collapseWhitespace: false, removeComments: false },
       // inject: true
     }),
-    // new WorkboxPlugin.GenerateSW({
-    //   // these options encourage the ServiceWorkers to get in there fast
-    //   // and not allow any straggling "old" SWs to hang around
-    //   clientsClaim: true,
-    //   skipWaiting: true,
-    // }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css',
@@ -91,13 +80,6 @@ module.exports = {
     new WorkboxPlugin.InjectManifest({
       swSrc: './src/worker.ts',
       swDest: 'service-worker.js',
-      // include: [
-      //   'img/*.png'
-      // ],
-      manifestTransforms: [(manifest) => {
-        console.log({manifest})
-        return { manifest };
-      }]
     }),
     new CopyPlugin({
       patterns: [
@@ -105,9 +87,6 @@ module.exports = {
         './manifest.json'
       ],
     }),
-    // { apply(compiler) {
-    //   console.log(manifest)
-    // }}
   ],
   optimization: {
     splitChunks: {
