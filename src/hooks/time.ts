@@ -1,19 +1,21 @@
 import { useEffect } from 'react';
 
-const tasks = new Map<Symbol, { fn: Function, delay: number, countdown: number }>();
-
-window.setInterval(() => {
+const multiplier = 1;
+const tasks = window['_tasks'] = new Map<Symbol, { fn: Function, delay: number, countdown: number }>();
+const execute = window['_executeTasks'] = (immediate = false) => {
   Array.from(tasks.values())
-    .map(task => { task.countdown--; return task; })
-    .filter(({ countdown }) => 0 >= countdown)
+    .map(task => { (!immediate && (task.countdown--)); return task; })
+    .filter(({ countdown }) => immediate || (0 >= countdown))
     .forEach(task => {
       task.fn();
-      task.countdown = task.delay;
+      !immediate && (task.countdown = task.delay);
     });
-}, 1000);
+}
+
+window.setInterval(execute, 1000);
 
 export const useInterval = (interval: number, fn: Function) => useEffect(() => {
   const sym = Symbol();
-  tasks.set(sym, { fn, delay: interval, countdown: 0 });
+  tasks.set(sym, { fn, delay: interval * multiplier, countdown: 0 });
   return () => { tasks.has(sym) && tasks.delete(sym); };
 }, [ interval, fn ]);
