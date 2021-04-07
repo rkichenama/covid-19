@@ -3,6 +3,8 @@ import Select, { OptionsType } from 'react-select';
 import Modal from 'react-modal';
 import UsStates from '../data/states.json';
 
+Modal.setAppElement(document.body);
+
 const customStyles = {
   overlay: {
     // position: 'fixed',

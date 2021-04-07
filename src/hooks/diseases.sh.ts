@@ -96,7 +96,7 @@ const useNytHistoryByState = (reload: number, states: string[]) => {
       loading: false, loaded: true, error: undefined,
       data: list
     });
-  }, [ dispatch ]));
+  }, [ dispatch, states.join('|') ]));
 
   return state;
 };
