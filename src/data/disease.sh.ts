@@ -41,10 +41,10 @@ export const jhuCurrentUSByCounty = async () => {
 
 // Vaccines
 export const vaccines = async (country: string = 'usa') => {
-  let data = [] as JHUVaccineData[];
+  let data = {} as JHUVaccineData;
   try {
     const response = await axios(`vaccine/coverage/countries/${country}?lastdays=all`);
-    data = response.data as JHUVaccineData[];
+    data = response.data as JHUVaccineData;
   } catch (err) {
     console.log({ err })
   } finally {

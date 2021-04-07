@@ -80,6 +80,7 @@ module.exports = {
     new WorkboxPlugin.InjectManifest({
       swSrc: './src/worker.ts',
       swDest: 'service-worker.js',
+      maximumFileSizeToCacheInBytes: 6 * 1024 * 1024
     }),
     new CopyPlugin({
       patterns: [

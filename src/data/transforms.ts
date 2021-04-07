@@ -1,9 +1,24 @@
-import { parseISO } from 'date-fns';
+import { parseISO, parse } from 'date-fns';
 import sortBy from 'lodash/sortBy';
 
 export const chartableDiseaseData = (list: DiseasesData[] = []) => (field: ('cases' | 'deaths')) => {
   return sortBy<ChartableData[]>(
     list.map(({ date, [field]: value }) => ({ x: parseISO(date), y: value })),
+    [ ({ x }: ChartableData) => x ]
+  ) as ChartableData[];
+};
+
+// https://www1.nyc.gov/site/doh/covid/covid-19-vaccine-facts.page
+const doses = [
+  2, // Pfizer
+  2, // Moderna
+  1, // Johnson & Johnson
+];
+const dosesPerPerson = doses.reduce((t, c) => t + c, 0) / doses.length;
+const parseDate = (str: string) => parse(str, 'MM/dd/yy', new Date());
+export const chartableVaccineData = (list: Record<string, number> = {}) => {
+  return sortBy<ChartableData[]>(
+    Object.entries(list).map(([ key, value ]) => ({ x: parseDate(key), y: (value / dosesPerPerson) | 0 })),
     [ ({ x }: ChartableData) => x ]
   ) as ChartableData[];
 };

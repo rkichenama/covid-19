@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState, useReducer, useCallback } from 'react';
-import { nytHistoryByState, nytHistoryUS } from '../data/disease.sh';
-import { chartableDiseaseData } from '../data/transforms';
+import { nytHistoryByState, nytHistoryUS, vaccines } from '../data/disease.sh';
+import { chartableDiseaseData, chartableVaccineData } from '../data/transforms';
 import { useInterval } from './time';
 
 type FetchingState<T extends any> = {
@@ -151,3 +151,40 @@ export const useNytUSHistoryChart = (type: 'deaths' | 'cases' = 'deaths', reload
 
   return { data: chartData, loading, loaded, error };
 }
+
+const useJhuUSVaccines = (reload: number) => {
+  const [
+    state, dispatch
+  ] = useReducer<FetchingReducer<JHUVaccineData>, FetchingState<JHUVaccineData>>(
+    mergeReducer, undefined, initializer<JHUVaccineData>()
+  );
+
+  useInterval(reload * 60, useCallback(async () => {
+    dispatch({
+      ...state,
+      loading: true, loaded: false, error: undefined
+    });
+    const item = await vaccines();
+    dispatch({
+      ...state,
+      loading: false, loaded: true, error: undefined,
+      data: [ item ]
+    });
+  }, [ dispatch ]));
+
+  return state;
+};
+export const useJhuUSVaccinesChart = (reload: number = 10) => {
+  const { data, loading, loaded, error } = useJhuUSVaccines(reload);
+  const [ chartData, setChartData ] = useState([] as DataSet[]);
+
+  useEffect(() => {
+    setChartData([{
+      name: 'US Vaccine Rollout',
+      color: 'magenta',
+      data: chartableVaccineData(data[0]?.timeline)
+    } as DataSet]);
+  }, [ data ]);
+
+  return { data: chartData, loading, loaded, error };
+};
