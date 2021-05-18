@@ -4,6 +4,7 @@ import { CheckBox } from './RadioBox';
 import SelectState from './SelectState';
 import CovidContext from '../data/context';
 import { Actions } from '../data/reducer';
+import Vaccines from './Vaccines';
 
 import './Menu.scss';
 
@@ -13,6 +14,7 @@ const Menu: React.FC<any> = () => {
     type, includeUS, logScale, states, deltas
   } = React.useContext(CovidContext);
   const [ isOpen, setOpen ] = React.useState(false);
+  const [ showVaccines, toggleVaccines ] = React.useState(false);
 
   return (
     <div id='one-menu' className='x1 y1 w12 h1 as-grid one-row'>
@@ -60,15 +62,23 @@ const Menu: React.FC<any> = () => {
           Log Scale
         </label> */}
       </fieldset>
-      <button className='w2' onClick={() => setOpen(true)}>select states</button>
+      <div className='w3 as-table'>
+        <button className='w6' onClick={() => setOpen(true)}>select states</button>
+        {
+          isOpen ? (
+            <SelectState {...{ states, setOpen, setStates: a => {
+              dispatch({ type: Actions.upStates, payload: a })
+            } }}/>
+          ) : null
+        }
+        <button className='x9 w3' onClick={() => toggleVaccines(true)}>go</button>
+      </div>
+      <div id='portal' className='x10 w3'></div>
       {
-        isOpen ? (
-          <SelectState {...{ states, setOpen, setStates: a => {
-            dispatch({ type: Actions.upStates, payload: a })
-          } }}/>
+        showVaccines ? (
+          <Vaccines isOpen={showVaccines} setOpen={toggleVaccines} />
         ) : null
       }
-      <div id='portal' className='x10 w3'></div>
     </div>
   );
 };

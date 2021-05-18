@@ -19,30 +19,6 @@ const initializer = <T extends any>() => () => ({
   error: undefined
 } as FetchingState<T>);
 
-// export const useNytHistoryByState = (state: string, reload: number = 10) => {
-//   const [
-//     { data, loading, loaded, error }, dispatch
-//   ] = useReducer<FetchingReducer<NYTStateData>, FetchingState<NYTStateData>>(
-//     mergeReducer, undefined, initializer<NYTStateData>()
-//   );
-//   const fetch = (state: string) => {
-//     dispatch({ loading: true, loaded: false, error: undefined, data: [] });
-//     nytHistoryByState(state)
-//       .then(
-//         list => { dispatch({
-//           loading: false, loaded: true, error: undefined,
-//           data: list
-//         }); }
-//       );
-//   };
-//   const doFetch = useCallback(() => {
-//     fetch(state);
-//   }, [ state ]);
-//   useInterval(reload * 60, doFetch);
-
-//   return { data, loading, loaded, error };
-// }
-
 const StateColors = {
   'New York': '#008BC4', // celebration blue
   'Alabama': '#996633',
@@ -77,6 +53,15 @@ const StateColors = {
   'West Virginia': '#cfb53b',
   'Wyoming': '#a52a2a'
 };
+
+export const StateColor = (name: string) => {
+  const matcher = new RegExp(name, 'i');
+  const key = Object.keys(StateColors).find(key => matcher.test(key));
+  if (key) {
+    return StateColors[key];
+  }
+  return 'gray';
+}
 
 const useNytHistoryByState = (reload: number, states: string[]) => {
   const [

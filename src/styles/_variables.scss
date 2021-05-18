@@ -5,6 +5,7 @@ $accent-rgb: mix($accent, $accent);
 $dark-accent: darken($accent, 20%);
 $highlight: #ffff00;
 $loading-screen: rgba(255, 255, 255, 0.35);
+$loading-screen: rgba(0, 0, 0, 0.8);
 $contrast-screen: rgba(0, 0, 0, 0.45);
 
 $rainbow: hsl(266, 45%, 45%), hsl(306, 51%, 49%), hsl(341, 98%, 64%),

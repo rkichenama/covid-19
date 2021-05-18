@@ -22,16 +22,16 @@
 .show { display: inline-block !important; }
 .loading,
 [data-loading="true"] {
-  --sz: 48px;
+  --sz: 64px;
   position: relative;
-  min-height: var(--sz);
+  min-height: calc(var(--sz) * 2);
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     content: "";
     position: var(--position, absolute);
   }
-  &:before {
+  &::before {
     z-index: 10;
     top: var(--top, 0);
     left: var(--left, 0);
@@ -39,20 +39,32 @@
     height: var(--height, 100%);
     background-color: var(--loading-screen);
   }
-  &:after {
+  &::after {
     z-index: 11;
     height: var(--sz, 48px);
     width: var(--sz, 48px);
-    margin: calc(var(--sz, 48px) / -2) 0 0 calc(var(--sz, 48px) / -2);
+    margin: calc((var(--sz, 48px) - 2px) / -2) 0 0 calc((var(--sz, 48px) - 2px) / -2);
     border-radius: 50%;
-    border: 1px solid transparent;
-    border-top-color: var(--rainbow3, #{$accent});
     top: var(--centerY, 50%);
     left: var(--centerX, 50%);
-    // box-shadow: 0 0 2px #333333;
     transform-origin: center center;
-    transform: rotate(-45deg);
-    animation: rotate 0.75s infinite forwards linear;
+    border: 2px solid var(--rainbow5, #{$accent});
+    animation: spinning-coin 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  }
+}
+@keyframes spinning-coin {
+  0%, 100% {
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+  }
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(1800deg);
+    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  100% {
+    transform: rotateY(3600deg);
   }
 }
 @keyframes rotate {
