@@ -1,9 +1,14 @@
 import { parseISO, parse } from 'date-fns';
 import sortBy from 'lodash/sortBy';
 
-export const chartableDiseaseData = (list: DiseasesData[] = []) => (field: ('cases' | 'deaths')) => {
+export const chartableDiseaseData = (list: DiseasesData[] = []) => (field: ('cases' | 'deaths'), useDelta: boolean = false) => {
   return sortBy<ChartableData[]>(
-    list.map(({ date, [field]: value }) => ({ x: parseISO(date), y: value })),
+    list.map(({ date, [field]: value }, index, arr) => ({
+      x: parseISO(date),
+      y: useDelta
+        ? !index ? value : value - (arr[index - 1][field] || 0)
+        : value
+    })),
     [ ({ x }: ChartableData) => x ]
   ) as ChartableData[];
 };
@@ -48,4 +53,12 @@ export const shortDate = (date: string | Date) => (
 );
 export const monthYear = (date: string | Date) => (
   asLocaleString(asDate(date))(DateFormats.monthYear)
+);
+
+export const compactNumber = (n: number) => (
+  n.toLocaleString(undefined, { notation: 'compact' })
+);
+export const formattedNumber = (n: number) => (
+  // @ts-ignore
+  n.toLocaleString(undefined, { useGrouping: true, maximumFractionDigits: 0, roundingMode: 'floor' })
 );

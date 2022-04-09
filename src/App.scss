@@ -1,6 +1,12 @@
-@import 'styles/googleIcons';
-@import 'styles/googleFonts';
-@import 'styles/variables';
+@import './styles/googleIcons';
+@import './styles/googleFonts';
+@import './styles/variables';
+
+#covid-19-app {
+  display: contents;
+}
+
+//
 
 .all { --stroke: #{$all}; }
 .stills,
@@ -63,6 +69,7 @@ html, body {
 @import './styles/layout';
 body {
   @extend .as-grid;
+  overflow: hidden;
 }
 /* html controls */
 @import './styles/form';

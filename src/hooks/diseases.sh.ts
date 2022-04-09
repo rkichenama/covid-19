@@ -19,7 +19,7 @@ const initializer = <T extends any>() => () => ({
   error: undefined
 } as FetchingState<T>);
 
-const StateColors = {
+export const StateColors = {
   'New York': '#008BC4', // celebration blue
   'Alabama': '#996633',
   'Arizona': '#16256b',
@@ -85,7 +85,7 @@ const useNytHistoryByState = (reload: number, states: string[]) => {
 
   return state;
 };
-export const useNytHistoryChartByStates = (states: string[], type: 'deaths' | 'cases' = 'deaths', reload: number = 10) => {
+export const useNytHistoryChartByStates = (states: string[], type: 'deaths' | 'cases' = 'deaths', useDelta: boolean = false, reload: number = 10) => {
   const { data, loading, loaded, error } = useNytHistoryByState(reload, states);
   const [ chartData, setChartData ] = useState([] as DataSet[]);
 
@@ -93,9 +93,9 @@ export const useNytHistoryChartByStates = (states: string[], type: 'deaths' | 'c
     setChartData(states.map((state, idx) => ({
       name: state,
       color: StateColors[state] || 'lightgray',
-      data: chartableDiseaseData(data[idx])(type)
+      data: chartableDiseaseData(data[idx])(type, useDelta)
     } as DataSet)));
-  }, [ data, type ]);
+  }, [ data, type, useDelta ]);
 
   return { datasets: chartData, loading, loaded, error };
 }
@@ -122,7 +122,7 @@ const useNytUSHistory = (reload: number) => {
 
   return state;
 };
-export const useNytUSHistoryChart = (type: 'deaths' | 'cases' = 'deaths', reload: number = 10) => {
+export const useNytUSHistoryChart = (type: 'deaths' | 'cases' = 'deaths', useDelta: boolean = false, reload: number = 10) => {
   const { data, loading, loaded, error } = useNytUSHistory(reload);
   const [ chartData, setChartData ] = useState([] as DataSet[]);
 
@@ -130,9 +130,9 @@ export const useNytUSHistoryChart = (type: 'deaths' | 'cases' = 'deaths', reload
     setChartData([{
       name: 'United States',
       color: 'cyan',
-      data: chartableDiseaseData(data)(type)
+      data: chartableDiseaseData(data)(type, useDelta)
     } as DataSet]);
-  }, [ data, type ]);
+  }, [ data, type, useDelta ]);
 
   return { data: chartData, loading, loaded, error };
 }

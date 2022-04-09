@@ -1,30 +1,25 @@
 import React from 'react';
+import Panel from './components/Panel';
+import ChartLayers from './components/CanvasLayers';
 import Menu from './components/Menu';
-import Graph from './components/Graph';
-import { CovidProvider } from './data/context';
+import Info from './components/Info';
+import Status from './components/Status';
 
 import './App.scss';
 
-const Covid19: React.FC<any> = () => {
-  const [ type, setType ] = React.useState('cases' as ('deaths' | 'cases'));
-  const [ includeUS, toggleUS ] = React.useState(true);
-  const [ states, setStates ] = React.useState([
-    'New York',
-    'Texas',
-    'Florida',
-    'Kentucky',
-    'Tennessee',
-    'California',
-  ]);
-
+const App = () => {
   return (
-    <CovidProvider>
-      <main style={{ display: 'contents' }}>
-        <Graph {...{ type, states, includeUS }} />
-        <Menu {...{ type, setType, includeUS, toggleUS, states, setStates }}/>
-      </main>
-    </CovidProvider>
-  );
+    <>
+      <Panel x={1} y={1} w={12} noBg className='as-table one-row'>
+        <Menu />
+        <Info />
+      </Panel>
+      <Panel x={1} y={2} w={12} h={10} noBg style={{ position: 'relative' }} >
+        <ChartLayers />
+      </Panel>
+      <Status x={1} y={12} w={12} />
+    </>
+  )
 };
 
-export default Covid19;
+export default App;
