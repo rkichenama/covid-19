@@ -4,6 +4,7 @@ import ChartLayers from './components/CanvasLayers';
 import Menu from './components/Menu';
 import Info from './components/Info';
 import Status from './components/Status';
+import ImportantDates from './components/ImportantDates';
 
 import './App.scss';
 
@@ -14,10 +15,13 @@ const App = () => {
         <Menu />
         <Info />
       </Panel>
-      <Panel x={1} y={2} w={12} h={10} noBg style={{ position: 'relative' }} >
+      <Panel x={1} y={2} w={10} h={10} noBg style={{ position: 'relative' }} >
         <ChartLayers />
       </Panel>
-      <Status x={1} y={12} w={12} />
+      <Status x={11} y={2} w={2} h={10} />
+      <Panel x={1} y={12} w={12}>
+        <ImportantDates />
+      </Panel>
     </>
   )
 };

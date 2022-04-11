@@ -18,8 +18,12 @@ const Status: React.FC<{ x?: number, y?: number, w?: number, h?: number }> = ({ 
     }}>
       {
         hoveredDataPoints.map(({ name, color, data: [ point ] }) => point?.x ? (
-          <div key={`${name}${longDate(point.x)}`} style={{ color: color }}>
-            { name }: <span style={{ fontFamily: 'Source Code Pro'}}>{ compactNumber(point.y) }</span>
+          <div key={`${name}${longDate(point.x)}`} style={{
+            color,
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between'
+          }}>
+            <span>{ name }:</span>
+            <span style={{ fontFamily: 'Source Code Pro'}}>{ compactNumber(point.y) }</span>
           </div>
         ) : null)
       }

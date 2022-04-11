@@ -199,6 +199,42 @@ const YAxis: React.FC<HasZIndex> = ({ zIndex }) => {
     }} />
   );
 };
+type ImportantDates = Record<string, string>;
+const ImportantDates: React.FC<HasZIndex> = ({ zIndex }) => {
+  const { pandemicStart, fromLeft, fromBottom, months, chartMetaColor, textInChartFont } = React.useContext(GlobalContext);
+
+  return (
+    <Canvas {...{
+      draw: (ctx, { width, height }) => {
+        ctx.clearRect(0, 0, width, height);
+        const deriveX = scaledX(pandemicStart, differenceInDays(new Date(), startOfMonth(pandemicStart)), width - fromLeft);
+        // @ts-ignore
+        const importantDates: ImportantDates = window?.importantDates || {};
+
+        const mark = (day: Date) => {
+          const x = deriveX(day) + fromLeft;
+          ctx.beginPath();
+          ctx.strokeStyle = 'red';
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, height - fromBottom);
+          ctx.stroke();
+          ctx.closePath();
+        }
+
+        Object.entries(importantDates)
+          .forEach(([ dateStr ]) => {
+            mark(new Date(dateStr));
+          });
+      },
+      style: {
+        position: 'absolute',
+        top: '0', left: '0',
+        'z-index': zIndex
+      }
+    }} />
+  );
+};
 const MouseLayer: React.FC<HasZIndex> = ({ zIndex }) => {
   const { fromBottom, fromLeft, isLogScale, maxRange, pandemicStart, hoverValue, update } = React.useContext(GlobalContext);
 
@@ -376,6 +412,7 @@ const ChartLayers = () => {
     <>
       <XAxis zIndex='10' />
       <YAxis zIndex='11' />
+      <ImportantDates zIndex='12' />
       <UnionPlot zIndex='20' {...{ US }} />
       <StatesPlot zIndex='30' {...{ States }} />
       <MouseLayer zIndex='100' />
