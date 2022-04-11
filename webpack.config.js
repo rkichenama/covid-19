@@ -9,7 +9,7 @@ const webpack = require('webpack');
 
 module.exports = {
   devServer: {
-    contentBase: join(__dirname, 'dist'),
+    // contentBase: join(__dirname, 'dist'),
     compress: true,
     port: 9000
   },
@@ -80,7 +80,7 @@ module.exports = {
     new WorkboxPlugin.InjectManifest({
       swSrc: './src/worker.ts',
       swDest: 'service-worker.js',
-      maximumFileSizeToCacheInBytes: 6 * 1024 * 1024
+      maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
     }),
     new CopyPlugin({
       patterns: [

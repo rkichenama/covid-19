@@ -1,9 +1,11 @@
 @import "./variables";
 
+body * { box-sizing: border-box; }
 .with {
   &-vscroll { overflow-y: auto; }
   &-hscroll { overflow-x: auto; }
 }
+body,
 .as-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -80,7 +82,6 @@
 }
 .one-row {
   grid-template-rows: 1fr;
-  align-items: center;
 }
 .no-margin {
   margin: 0;

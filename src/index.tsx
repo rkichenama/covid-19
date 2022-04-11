@@ -1,16 +1,31 @@
 import React from 'react';
-import { render } from 'react-dom';
+// import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
+import GlobalContext from './GlobalContext';
 import { Workbox } from 'workbox-window';
 
 
-const target = window.document.createElement('div');
-// target.setAttribute('style', 'display: content')
-target.style.display = 'contents';
-window.document.body.appendChild(target);
+// const target = window.document.createElement('div');
+// // target.setAttribute('style', 'display: content')
+// target.style.display = 'contents';
+// window.document.body.appendChild(target);
 
-render(<App />, target);
+// render(<App />, target);
 
+const container = window.document.createElement('main');
+container.id = 'covid-19-app';
+document.body.appendChild(container);
+const element = (
+  <React.StrictMode>
+    <GlobalContext>
+      <App />
+    </GlobalContext>
+  </React.StrictMode>
+);
+const root = createRoot(container);
+root.render(element);
+/*
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     const wb = new Workbox('./service-worker.js');
@@ -37,3 +52,4 @@ if ('serviceWorker' in navigator) {
     wb.register();
   });
 }
+*/
