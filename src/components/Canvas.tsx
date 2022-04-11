@@ -10,11 +10,12 @@ export type Props = {
   onMouseEnter?: (evt: React.MouseEvent<HTMLCanvasElement>, context: CanvasRenderingContext2D, dimensions: Dimensions) => void,
   onMouseMove?: (evt: React.MouseEvent<HTMLCanvasElement>, context: CanvasRenderingContext2D, dimensions: Dimensions) => void,
    onMouseLeave?: (evt: React.MouseEvent<HTMLCanvasElement>, context: CanvasRenderingContext2D, dimensions: Dimensions) => void,
-  style?: any
+  style?: any,
+  id?: string
 };
 
 const Canvas: React.FC<Props> = ({
-  className, draw,
+  id, className, draw,
   onMouseEnter, onMouseMove,  onMouseLeave
 }) => {
   const [ dim, setDim ] = React.useState({ x: 0, y: 0, width: 0, height: 0 } as Dimensions);
@@ -27,6 +28,7 @@ const Canvas: React.FC<Props> = ({
   }, [ canvas.current, draw, dim ]);
 
   const resizeEffect = React.useCallback(() => {
+    if (!canvas.current) return;
     const { x, y, width, height } = canvas.current.getBoundingClientRect();
       setDim({ x, y, width, height } as Dimensions);
   }, [ setDim ])
@@ -43,7 +45,7 @@ const Canvas: React.FC<Props> = ({
   }, []);
   return (
     <canvas {...{
-      className,
+      id, className,
       onMouseEnter: (evt) => onMouseEnter(evt, canvas.current.getContext('2d'), dim),
       onMouseMove: (evt) => onMouseMove(evt, canvas.current.getContext('2d'), dim),
        onMouseLeave: (evt) =>  onMouseLeave(evt, canvas.current.getContext('2d'), dim),

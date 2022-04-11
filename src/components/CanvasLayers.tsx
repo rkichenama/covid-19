@@ -139,7 +139,7 @@ const XAxis: React.FC<HasZIndex> = ({ zIndex }) => {
   );
 };
 const YAxis: React.FC<HasZIndex> = ({ zIndex }) => {
-  const { isLogScale, fromLeft, fromBottom, maxRange, chartMetaColor, textInChartFont } = React.useContext(GlobalContext);
+  const { isLogScale, fromLeft, fromBottom, maxRange, chartMetaColor, textInChartFont, lineWidthGrid } = React.useContext(GlobalContext);
 
   return (
     <Canvas {...{
@@ -153,7 +153,7 @@ const YAxis: React.FC<HasZIndex> = ({ zIndex }) => {
           const zero = calcLinear(value);
           ctx.beginPath();
           ctx.strokeStyle = chartMetaColor;
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = lineWidthGrid;
           ctx.moveTo(fromLeft, zero);
           ctx.lineTo(width, zero);
           ctx.stroke();
@@ -201,7 +201,7 @@ const YAxis: React.FC<HasZIndex> = ({ zIndex }) => {
 };
 type ImportantDates = Record<string, string>;
 const ImportantDates: React.FC<HasZIndex> = ({ zIndex }) => {
-  const { pandemicStart, fromLeft, fromBottom, months, chartMetaColor, textInChartFont } = React.useContext(GlobalContext);
+  const { pandemicStart, fromLeft, fromBottom, lineWidthGrid } = React.useContext(GlobalContext);
 
   return (
     <Canvas {...{
@@ -215,7 +215,7 @@ const ImportantDates: React.FC<HasZIndex> = ({ zIndex }) => {
           const x = deriveX(day) + fromLeft;
           ctx.beginPath();
           ctx.strokeStyle = 'red';
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = lineWidthGrid;
           ctx.moveTo(x, 0);
           ctx.lineTo(x, height - fromBottom);
           ctx.stroke();
@@ -236,7 +236,7 @@ const ImportantDates: React.FC<HasZIndex> = ({ zIndex }) => {
   );
 };
 const MouseLayer: React.FC<HasZIndex> = ({ zIndex }) => {
-  const { fromBottom, fromLeft, isLogScale, maxRange, pandemicStart, hoverValue, update } = React.useContext(GlobalContext);
+  const { fromBottom, fromLeft, isLogScale, maxRange, pandemicStart, hoverValue, update, lineWidthGrid } = React.useContext(GlobalContext);
 
   return (
     <Canvas {...{
@@ -257,7 +257,7 @@ const MouseLayer: React.FC<HasZIndex> = ({ zIndex }) => {
         // horizontal
         ctx.beginPath();
         ctx.strokeStyle = 'yellow';
-        ctx.lineWidth = 0.5;
+        ctx.lineWidth = lineWidthGrid;
         ctx.moveTo(fromLeft, y);
         ctx.lineTo(width, y);
         ctx.stroke();
@@ -266,7 +266,7 @@ const MouseLayer: React.FC<HasZIndex> = ({ zIndex }) => {
         // vertical
         ctx.beginPath();
         ctx.strokeStyle = 'yellow';
-        ctx.lineWidth = 0.5;
+        ctx.lineWidth = lineWidthGrid;
         ctx.moveTo(x, height - fromBottom);
         ctx.lineTo(x, 0);
         ctx.stroke();
@@ -289,13 +289,18 @@ const MouseLayer: React.FC<HasZIndex> = ({ zIndex }) => {
   );
 };
 
-const UnionPlot: React.FC<HasZIndex & { US: any }> = ({ zIndex, US }) => {
+const UnionPlot: React.FC<HasZIndex & { US: {
+  error: any;
+  loaded: boolean;
+  loading: boolean;
+  data: DataSet[];
+} }> = ({ zIndex, US }) => {
   const { isLogScale, includeUS } = React.useContext(GlobalContext);
 
-  return includeUS && US.loaded ? (
+  return includeUS && US.loaded && US.data.length ? (
     <USChart {...{
       scaledX,
-      data: US.data,
+      data: US.data[0],
       scaledY: scaledY(isLogScale),
       style: {
         position: 'absolute',
@@ -306,20 +311,34 @@ const UnionPlot: React.FC<HasZIndex & { US: any }> = ({ zIndex, US }) => {
   ) : null;
 };
 
-const StatesPlot: React.FC<HasZIndex & { States: any }> = ({ zIndex, States }) => {
+const StatesPlot: React.FC<HasZIndex & { States: {
+  error: any;
+  loaded: boolean;
+  loading: boolean;
+  datasets: DataSet[];
+} }> = ({ zIndex, States }) => {
   const { isLogScale } = React.useContext(GlobalContext);
 
-  return States.loaded ? (
-    <USChart {...{
-      scaledX,
-      data: States.datasets,
-      scaledY: scaledY(isLogScale),
-      style: {
-        position: 'absolute',
-        top: '0', left: '0',
-        'z-index': zIndex
+  return States.loaded && States.datasets.length ? (
+    <>
+      {
+        orderBy(States.datasets, [
+          ({ name }) => name.toLowerCase()
+        ], ['asc'])
+        .map((dataset, nth) => (
+          <USChart key={dataset.name} {...{
+            scaledX,
+            data: dataset,
+            scaledY: scaledY(isLogScale),
+            style: {
+              position: 'absolute',
+              top: '0', left: '0',
+              'z-index': `${Number(zIndex) + nth}`
+            }
+          }} />
+        ))
       }
-    }} />
+    </>
   ) : null;
 };
 
@@ -414,7 +433,7 @@ const ChartLayers = () => {
       <YAxis zIndex='11' />
       <ImportantDates zIndex='12' />
       <UnionPlot zIndex='20' {...{ US }} />
-      <StatesPlot zIndex='30' {...{ States }} />
+      <StatesPlot zIndex='21' {...{ States }} />
       <MouseLayer zIndex='100' />
     </>
   );

@@ -25,7 +25,9 @@ type GlobalContext = {
   isLogScale: boolean,
   maxRange: number,
   selectedStates: string[],
-  hoveredDataPoints: DataSet[]
+  hoveredDataPoints: DataSet[],
+  lineWidthMain: number,
+  lineWidthGrid: number
 };
 export const GlobalContext = React.createContext<GlobalContext & { update: (options: Partial<GlobalContext>) => void }>(undefined);
 
@@ -37,13 +39,15 @@ const Provider = ({ children }) => {
     fromLeft: 0,
     months: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
     dataType: DataTypes.Cases,
-    options: [ Options.ShowOverall, Options.Deltas ],
+    options: [ Options.ShowOverall ],
     textInChartFont: '12px "Source Code Pro"',
     chartMetaColor: '#cccccc',
     hoverValue: { date: undefined, value: 0 },
     maxRange: 1032,
-    selectedStates: ['New York', 'Florida', 'Colorado', 'Oregon', 'Alabama'],
-    hoveredDataPoints: []
+    selectedStates: ['New York', 'Florida', 'Texas'],
+    hoveredDataPoints: [],
+    lineWidthMain: 2.0,
+    lineWidthGrid: 0.5
   } as GlobalContext);
   const update = React.useCallback((options: Partial<GlobalContext>) => {
     setValue(current => ({

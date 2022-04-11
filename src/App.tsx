@@ -15,7 +15,7 @@ const App = () => {
         <Menu />
         <Info />
       </Panel>
-      <Panel x={1} y={2} w={10} h={10} noBg style={{ position: 'relative' }} >
+      <Panel x={1} y={2} w={10} h={10} noBg style={{ position: 'relative', perspective: '1024px' }} >
         <ChartLayers />
       </Panel>
       <Status x={11} y={2} w={2} h={10} />
