@@ -1,1 +1,230 @@
-(()=>{"use strict";var e={9092:(e,t,a)=>{var n=a(7294),s=a(3935);const r=e=>({name:t,checked:a,onChange:s,label:r=t,value:o=t,className:i})=>n.createElement("label",Object.assign({"data-class":e},{className:i}),n.createElement("input",Object.assign({},{type:e,name:t,checked:a,onChange:s,value:o})),n.createElement("span",null,r)),o=r("radio"),i=r("checkbox"),l=({type:e="cases",onChange:t=(e=>{console.table(e.target,["value","checked"])})})=>n.createElement("fieldset",{className:"radio-options w2 as-grid one-row"},n.createElement(o,Object.assign({},{onChange:t,className:"w6 align-center",name:"radio-option",value:"deaths",label:n.createElement("span",{className:"material-icons",title:"Deaths"},"person_remove"),checked:"deaths"===e})),n.createElement(o,Object.assign({},{onChange:t,className:"w6 align-center",name:"radio-option",value:"cases",label:n.createElement("span",{className:"material-icons",title:"Cases"},"medical_services"),checked:"cases"===e})));var d=a(1663),c=a(3253),p=a.n(c);const g=JSON.parse('["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]');p().setAppElement(document.body);const m={overlay:{top:0,left:0,right:0,bottom:0,backgroundColor:"rgba(0, 0, 0, 0.75)"},content:{border:"1px solid #131313",background:"#333",overflow:"visible",borderRadius:"4px",outline:"none",padding:"20px",top:"50%",left:"30%",right:"30%",bottom:"auto",transform:"translateY(-50%)"}},u=({states:e=[],setOpen:t=(()=>{}),setStates:a=(()=>{})})=>n.createElement(p(),{isOpen:!0,onRequestClose:()=>t(!1),style:m,contentLabel:"state selector"},n.createElement(d.ZP,Object.assign({},{className:"reactSelect-container",classNamePrefix:"reactSelect",menuPlacement:"auto",value:e.map((e=>({label:e,value:e}))),options:g.map((e=>({label:e,value:e}))),isMulti:!0,isClearable:!1,onChange:e=>{e&&Array.isArray(e)?a(e.map((({value:e})=>e))):a([])}}))),h="changeType",y="toggleScale",f="includeUS",b="upStates",v="toggleDeltas",k={[h]:(e,{payload:t})=>({...e,type:t}),[y]:(e,{payload:t})=>({...e,logScale:t}),[f]:(e,{payload:t})=>({...e,includeUS:t}),[v]:(e,{payload:t})=>({...e,deltas:t}),[b]:(e,{payload:t})=>({...e,states:t})},w=({type:e="deaths",includeUS:t=!1,logScale:a=!1,states:n=[],deltas:s=!1})=>({type:e,logScale:a,includeUS:t,states:n,deltas:s}),E=(e,t)=>{const a=k[t.type];return a?a(e,t):e},x={dispatch:()=>{},type:"deaths",includeUS:!0,logScale:!1,deltas:!1,states:["New York","Texas","Florida","Kentucky","Tennessee","California"]},S=n.createContext(x),C=S,N=({children:e})=>{const[t,a]=(s=x,(0,n.useReducer)(E,s,w));var s;return n.createElement(S.Provider,{value:{...t,dispatch:a}},e)};var O=a(6264),j=a(5472),L=a.n(j);var W=a(9669),M=a.n(W);const T=(e=>{const t=M().create({baseURL:"https://disease.sh/v3/covid-19/"});return t.interceptors.response.use((e=>(e.data&&/^application\/json/.test(e.headers["content-type"])&&(e.data=(0,O.camelizeKeys)(e.data)),e))),t.interceptors.request.use((e=>{const t={...e};return"multipart/form-data"===t.headers["Content-Type"]||(e.params&&(t.params=(0,O.decamelizeKeys)(e.params)),e.data&&(t.data=(0,O.decamelizeKeys)(e.data))),t})),t})();var A=a(9849),I=a(9734),U=a.n(I);const F=(e=[])=>t=>U()(e.map((({date:e,[t]:a})=>({x:(0,A.Z)(e),y:a}))),[({x:e})=>e]),D=[2,2,1],R=(D.reduce(((e,t)=>e+t),0),D.length,{year:"2-digit",month:"short",day:"2-digit"}),z={year:"2-digit",month:"2-digit",day:"2-digit"},P=e=>e instanceof Date?e:(0,A.Z)(e),H=e=>t=>e.toLocaleDateString(void 0,t),Z=e=>H(P(e))(R),_=e=>H(P(e))(z),$=window._tasks=new Map,K=window._executeTasks=(e=!1)=>{Array.from($.values()).map((t=>(!e&&t.countdown--,t))).filter((({countdown:t})=>e||0>=t)).forEach((t=>{t.fn(),!e&&(t.countdown=t.delay)}))};window.setInterval(K,1e3);const q=(e,t)=>(0,n.useEffect)((()=>{const a=Symbol();return $.set(a,{fn:t,delay:1*e,countdown:0}),()=>{$.has(a)&&$.delete(a)}}),[e,t]),B=(e,t)=>({...e,...t}),V={"New York":"#008BC4",Alabama:"#996633",Arizona:"#16256b",California:"#000080",Delaware:"#71a1a0",Florida:"#cc6500",Georgia:"#993366",Hawaii:"#f00c0f",Idaho:"#339966",Indiana:"#0000cc",Kentucky:"#ffe39b",Louisiana:"#c41e3a",Maryland:"#336699",Massachusetts:"#0000ff",Minnesota:"#800080",Nevada:"#c0c0c0","New Hampshire":"#fa500","New Jersey":"#f0dc82","New Mexico":"#ffff00","North Carolina":"#cc0000",Ohio:"#0000ff",Oklahoma:"#008000",Oregon:"#ccac00",Pennsylvania:"#008800","South Carolina":"#00416a","South Dakota":"#ffd700",Tennessee:"#ff7f00",Texas:"#ff0000",Utah:"#ffcc33",Vermont:"#006400","West Virginia":"#cfb53b",Wyoming:"#a52a2a"},Y=e=>{const t=new RegExp(e,"i"),a=Object.keys(V).find((e=>t.test(e)));return a?V[a]:"gray"},X={overlay:{top:0,left:0,right:0,bottom:0,backgroundColor:"rgba(0, 0, 0, 0.75)"},content:{border:"1px solid #131313",background:"#333",overflow:"visible",borderRadius:"0px",outline:"none",padding:"0px",inset:"4vh 8vw"}},G=({data:e})=>{const t=8*"DISTRICT OF COLUMBIA".length*1.15,[a,s]=(r=e.map((({percentAdultsFully:e})=>e)),[Math.min.apply(null,r),Math.max.apply(null,r)]);var r;return n.createElement("div",{className:"as-grid",style:{height:"100%",gridTemplateColumns:"96px 1fr"}},n.createElement("div",{className:"h12 as-table",style:{gridTemplateRows:`repeat(10, 1fr) ${t}px`}},Array.from({length:10}).map(((e,t)=>n.createElement("div",{key:"t-"+(10-t),className:"w12",style:{border:"1px solid white",borderWidth:"1px 0px",marginBottom:"-1px"}})))),n.createElement("div",{className:"h12 as-table",style:{gridTemplateRows:`1fr ${t}px`,gridTemplateColumns:`repeat(${e.length}, 1fr)`}},e.map((({name:e,percentAdultsFully:t})=>n.createElement(n.Fragment,{key:`l-${e}`},n.createElement("div",{className:"y1",style:{display:"flex",alignItems:"flex-end",padding:"0 2px"}},n.createElement("div",{title:`${e} ${(100*t).toFixed(2)}%`,style:{backgroundColor:Y(e),width:"100%",height:100*t+"%"}})),n.createElement("div",{className:"y2",title:e,style:{display:"flex",alignItems:"center",fontSize:"8px",padding:"0 2px",whiteSpace:"nowrap",writingMode:"vertical-rl",textOrientation:"upright",color:t===a?"red":t===s?"green":"currentColor"}},e))))))},J=({promise:e,isOpen:t=!1,setOpen:a=(()=>{})})=>{const{isLoading:s,data:r}=(e=>{const[{isLoading:t,isError:a,data:s},r]=(0,n.useState)({isLoading:!0,isError:!1,data:void 0});return((e,t)=>{(0,n.useEffect)((()=>{Promise.resolve(e).then((e=>{t({isLoading:!1,isError:!1,data:e})}),(e=>{t({isLoading:!1,isError:e,data:void 0})}))}),[])})(e,r),{isLoading:t,isError:a,data:s}})(e);return n.createElement(p(),Object.assign({},{isOpen:t,onRequestClose(){a(!1)},style:X,contentLabel:"vaccine chart"}),s?n.createElement("div",{className:"loading",style:{width:"100%",height:"100%"}}):n.createElement(G,Object.assign({},{data:r})))},Q=e=>{const[t]=n.useState((async()=>{const e=await fetch("https://data.cdc.gov/resource/q9mh-h2tw.json?$limit=5000&$$app_token=22fCsLaigljZeYWXX1D6ffzlf"),t=(0,O.camelizeKeys)(await e.json()).reduce(((e,t)=>{let a=e[t.stateCode]||{countyCount:[0,""],percentAdultsFully:0,percentHispanic:0,percentNonHispanicAmerican:0,percentNonHispanicAsian:0,percentNonHispanicBlack:0,percentNonHispanicNative:0,percentNonHispanicWhite:0};return Object.keys(a).forEach((e=>{if(/countyCount/.test(e)){const[n,s]=a[e];a[e]=[n+1,t.state]}else a[e]+=Number(t[e]||"0")})),e[t.stateCode]=a,e}),{});return L()(Object.entries(t).map((([e,{countyCount:[t,a],...n}])=>Object.keys(n).reduce(((e,a)=>(e[a]=n[a]/t,e)),{name:a}))),["name"],["asc"])})());return n.createElement(J,Object.assign({},e,{promise:t}))},ee=()=>{const{dispatch:e,type:t,includeUS:a,logScale:s,states:r,deltas:o}=n.useContext(C),[d,c]=n.useState(!1),[p,g]=n.useState(!1);return n.createElement("div",{id:"one-menu",className:"x1 y1 w12 h1 as-grid one-row"},n.createElement(l,Object.assign({},{type:t,onChange:t=>e({type:h,payload:t?.target?.value||"deaths"})})),n.createElement("fieldset",{className:"w4 as-grid one-row"},n.createElement(i,Object.assign({},{className:"w4 align-center",checked:o,label:n.createElement("span",{className:"material-icons",title:"Show Deltas"},"compare"),onChange:t=>e({type:v,payload:!o})})),n.createElement(i,Object.assign({},{className:"w4 align-center",checked:a,label:n.createElement("span",{className:"material-icons",title:"Include US"},"plus_one"),onChange:t=>e({type:f,payload:!a})})),n.createElement(i,Object.assign({},{className:"w4 align-center",checked:s,label:n.createElement("span",{className:"material-icons",title:"Log Scale"},"search"),onChange:t=>e({type:y,payload:!s})}))),n.createElement("div",{className:"w3 as-table"},n.createElement("button",{className:"w6",onClick:()=>c(!0)},"select states"),d?n.createElement(u,Object.assign({},{states:r,setOpen:c,setStates:t=>{e({type:b,payload:t})}})):null,n.createElement("button",{className:"x9 w3",onClick:()=>g(!0)},"go")),n.createElement("div",{id:"portal",className:"x10 w3"}),p?n.createElement(Q,{isOpen:p,setOpen:g}):null)};var te=a(8910),ae=a(2510),ne=a(7891),se=a(9368),re=a(3466),oe=a(1949),ie=a(8602),le=a(6486);const de=["#F4511E","#FFF59D","#DCE775","#8BC34A","#00796B","#006064"],ce="#808080",pe="#acacac",ge="#ffffff",me="#131313",ue={width:360,height:360,padding:{top:48,bottom:48,left:48,right:48}},he={fontFamily:"'Helvetica Neue', 'Helvetica', sans-serif",fontSize:14,letterSpacing:"normal",padding:8,fill:ge,stroke:"transparent",strokeWidth:0},ye=(0,le.assign)({textAnchor:"middle"},he),fe="round",be="round",ve={area:(0,le.assign)({style:{data:{fill:me},labels:he}},ue),axis:(0,le.assign)({style:{axis:{fill:"transparent",stroke:pe,strokeWidth:2,strokeLinecap:fe,strokeLinejoin:be},axisLabel:(0,le.assign)({},ye,{padding:8,stroke:"transparent"}),grid:{fill:"none",stroke:ce,strokeDasharray:"10, 5",strokeLinecap:fe,strokeLinejoin:be,pointerEvents:"painted"},ticks:{fill:"transparent",size:5,stroke:pe,strokeWidth:1,strokeLinecap:fe,strokeLinejoin:be},tickLabels:(0,le.assign)({},he,{fill:ge})}},ue),polarDependentAxis:(0,le.assign)({style:{ticks:{fill:"transparent",size:1,stroke:"transparent"}}}),bar:(0,le.assign)({style:{data:{fill:ge,padding:8,strokeWidth:0},labels:he}},ue),boxplot:(0,le.assign)({style:{max:{padding:8,stroke:ge,strokeWidth:1},maxLabels:(0,le.assign)({},he,{padding:3}),median:{padding:8,stroke:ge,strokeWidth:1},medianLabels:(0,le.assign)({},he,{padding:3}),min:{padding:8,stroke:ge,strokeWidth:1},minLabels:(0,le.assign)({},he,{padding:3}),q1:{padding:8,fill:ge},q1Labels:(0,le.assign)({},he,{padding:3}),q3:{padding:8,fill:ge},q3Labels:(0,le.assign)({},he,{padding:3})},boxWidth:20},ue),candlestick:(0,le.assign)({style:{data:{stroke:ge},labels:(0,le.assign)({},he,{padding:5})},candleColors:{positive:"#ffffff",negative:ge}},ue),chart:ue,errorbar:(0,le.assign)({borderWidth:8,style:{data:{fill:"transparent",opacity:1,stroke:ge,strokeWidth:2},labels:he}},ue),group:(0,le.assign)({colorScale:de},ue),histogram:(0,le.assign)({style:{data:{fill:ge,stroke:me,strokeWidth:2},labels:he}},ue),legend:{colorScale:de,gutter:10,orientation:"vertical",titleOrientation:"top",style:{data:{type:"circle"},labels:he,title:(0,le.assign)({},he,{padding:5})}},line:(0,le.assign)({style:{data:{fill:"transparent",opacity:1,stroke:ge,strokeWidth:2},labels:he}},ue),pie:(0,le.assign)({colorScale:de,style:{data:{padding:8,stroke:ce,strokeWidth:1},labels:(0,le.assign)({},he,{padding:20})}},ue),scatter:(0,le.assign)({style:{data:{fill:ge,opacity:1,stroke:"transparent",strokeWidth:0},labels:he}},ue),stack:(0,le.assign)({colorScale:de},ue),tooltip:{style:(0,le.assign)({},he,{padding:0,pointerEvents:"none"}),flyoutStyle:{stroke:me,strokeWidth:1,fill:"#f0f0f0",pointerEvents:"none"},flyoutPadding:5,cornerRadius:5,pointerLength:10},voronoi:(0,le.assign)({style:{data:{fill:"transparent",stroke:"transparent",strokeWidth:0},labels:(0,le.assign)({},he,{padding:5,pointerEvents:"none",fill:me}),flyout:{stroke:me,strokeWidth:1,fill:"#f0f0f0",pointerEvents:"none"}}},ue)},ke=({datasets:e})=>{const{logScale:t}=n.useContext(C),a=n.useRef(void 0),{width:r,height:o}=(e=>{const[{x:t,y:a,width:s,height:r},o]=(0,n.useState)({x:0,y:0,width:0,height:0});return(0,n.useLayoutEffect)((()=>{let t;return e?.current&&(o(e.current.getBoundingClientRect()),t=()=>{o(e.current.getBoundingClientRect())},window.addEventListener("resize",t)),()=>{t&&window.removeEventListener("resize",t)}}),[e?.current]),{x:t,y:a,width:s,height:r}})(a);return n.createElement("div",Object.assign({className:"plot x1 y2 w12 h11"},{ref:a}),e.length&&r&&o?n.createElement(n.Fragment,null,n.createElement(te.Z,Object.assign({},{theme:ve},{width:r,height:o,scale:{x:"time",y:t?"sqrt":"linear"},domainPadding:{x:[0,0],y:[0,96]},padding:{...ue.padding,top:0,left:16,right:16},containerComponent:n.createElement(ae.Z,Object.assign({},{theme:ve},{labels:({datum:e})=>"Invalid Date"===Z(e.x)?null:`[${Z(e.x)}]: ${(0,ie.WU)(",.0d")(e.y)}`,labelComponent:n.createElement(ne.Z,Object.assign({},{theme:ve},{constrainToVisibleArea:!0}))}))}),n.createElement(se.Z,Object.assign({},{theme:ve},{x:96,style:{data:{stroke:"white"},border:{stroke:"white"}},name:"legend",orientation:"horizontal",gutter:20,data:e.map((({name:e,color:t})=>({name:e,symbol:{fill:t}})))})),n.createElement(re.Z,Object.assign({},{theme:ve},{tickFormat:e=>_(e),tickCount:5})),n.createElement(re.Z,Object.assign({},{theme:ve},{dependentAxis:!0,tickCount:6,tickFormat:(0,ie.WU)(",~s"),offsetX:64})),Object.entries(importantDates).map((([e,t])=>{const a=P(e);return n.createElement(oe.Z,{key:e,samples:2,x:()=>a,style:{data:{stroke:"rgba(255, 0, 0, 0.5)",strokeWidth:"2px"}},events:[{target:"data",eventHandlers:{onMouseEnter:()=>(((e,t)=>{(0,s.render)(n.createElement("div",{style:{fontSize:"0.8em"}},"[",_(e),"]:"," ",t),document.getElementById("portal"))})(e,t),[])}}]})})),e.map((({name:e,data:t,color:a})=>n.createElement(oe.Z,Object.assign({key:e},{theme:ve,name:e},{style:{data:{stroke:a}},data:t,interpolation:"monotoneX"})))))):null)},we=()=>{const{type:e,includeUS:t,states:a,deltas:s}=n.useContext(C),r=((e="deaths",t=10)=>{const{data:a,loading:s,loaded:r,error:o}=(e=>{const[t,a]=(0,n.useReducer)(B,void 0,(()=>({data:[],loading:!1,loaded:!1,error:void 0})));return q(60*e,(0,n.useCallback)((async()=>{a({...t,loading:!0,loaded:!1,error:void 0});const e=await(async()=>{let e=[];try{e=(await T("nyt/usa")).data}catch(e){console.log({err:e})}finally{return e}})();a({...t,loading:!1,loaded:!0,error:void 0,data:e})}),[a])),t})(t),[i,l]=(0,n.useState)([]);return(0,n.useEffect)((()=>{l([{name:"United States",color:"cyan",data:F(a)(e)}])}),[a,e]),{data:i,loading:s,loaded:r,error:o}})(e),{datasets:o,loading:i,loaded:l,error:d}=((e,t="deaths",a=10)=>{const{data:s,loading:r,loaded:o,error:i}=((e,t)=>{const[a,s]=(0,n.useReducer)(B,void 0,(()=>({data:[],loading:!1,loaded:!1,error:void 0})));return q(60*e,(0,n.useCallback)((async()=>{s({...a,loading:!0,loaded:!1,error:void 0});const e=await Promise.all(t.map((e=>(async e=>{let t=[];try{t=(await T(`nyt/states/${encodeURIComponent(e)}?lastdays=all`)).data}catch(e){console.log({err:e})}finally{return t}})(e))));s({...a,loading:!1,loaded:!0,error:void 0,data:e})}),[s,t.join("|")])),a})(a,e),[l,d]=(0,n.useState)([]);return(0,n.useEffect)((()=>{d(e.map(((e,a)=>({name:e,color:V[e]||"lightgray",data:F(s[a])(t)}))))}),[s,t]),{datasets:l,loading:r,loaded:o,error:i}})(a,e),c=n.useMemo((()=>{let e=[];return o.length&&e.push.apply(e,o),t&&r.data.length&&e.push.apply(e,r.data),((e,t)=>{if(!e)return t;const a=(n=7,(e,t)=>{const[{y:a},...s]=e.slice(t-n-1,t);return s.reduce((e=>(t,{y:a},n,s)=>t+Math.max(0,n?a-s[n-1].y:a-e))(a),0)/n});var n;return t.map((({data:e,...t})=>({...t,data:e.map(((e,t,n)=>{if(t<=7)return e;const s=a(n,t);return{...e,y:s}}))})))})(s,e)}),[e,o,r.data,t,s]);return d?d.toString():i||(t?r.loading:t)?"Loading...":n.createElement(ke,Object.assign({},{datasets:c}))};var Ee=a(5580);const xe=window.document.createElement("div");xe.style.display="contents",window.document.body.appendChild(xe),(0,s.render)(n.createElement((()=>{const[e,t]=n.useState("cases"),[a,s]=n.useState(!0),[r,o]=n.useState(["New York","Texas","Florida","Kentucky","Tennessee","California"]);return n.createElement(N,null,n.createElement("main",{style:{display:"contents"}},n.createElement(we,Object.assign({},{type:e,states:r,includeUS:a})),n.createElement(ee,Object.assign({},{type:e,setType:t,includeUS:a,toggleUS:s,states:r,setStates:o}))))}),null),xe),"serviceWorker"in navigator&&window.addEventListener("load",(()=>{const e=new Ee.Z("./service-worker.js");e.addEventListener("waiting",(t=>{const a=document.createElement("button");a.className="x11 y1 w2 h1 wait",a.style.zIndex="9999",a.innerText="Update Service Worker",document.body.appendChild(a),a.addEventListener("click",(()=>{e.addEventListener("controlling",(e=>{window.location.reload()})),e.messageSW({type:"SKIP_WAITING"})}))})),e.register()}))}},t={};function a(n){if(t[n])return t[n].exports;var s=t[n]={id:n,loaded:!1,exports:{}};return e[n].call(s.exports,s,s.exports,a),s.loaded=!0,s.exports}a.m=e,a.x=e=>{},a.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return a.d(t,{a:t}),t},a.d=(e,t)=>{for(var n in t)a.o(t,n)&&!a.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:t[n]})},a.g=function(){if("object"==typeof globalThis)return globalThis;try{return this||new Function("return this")()}catch(e){if("object"==typeof window)return window}}(),a.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),a.r=e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},a.nmd=e=>(e.paths=[],e.children||(e.children=[]),e),(()=>{var e={514:0},t=[[9092,216]],n=e=>{},s=(s,r)=>{for(var o,i,[l,d,c,p]=r,g=0,m=[];g<l.length;g++)i=l[g],a.o(e,i)&&e[i]&&m.push(e[i][0]),e[i]=0;for(o in d)a.o(d,o)&&(a.m[o]=d[o]);for(c&&c(a),s&&s(r);m.length;)m.shift()();return p&&t.push.apply(t,p),n()},r=self.webpackChunkcovid_19=self.webpackChunkcovid_19||[];function o(){for(var n,s=0;s<t.length;s++){for(var r=t[s],o=!0,i=1;i<r.length;i++){var l=r[i];0!==e[l]&&(o=!1)}o&&(t.splice(s--,1),n=a(a.s=r[0]))}return 0===t.length&&(a.x(),a.x=e=>{}),n}r.forEach(s.bind(null,0)),r.push=s.bind(null,r.push.bind(r));var i=a.x;a.x=()=>(a.x=i||(e=>{}),(n=o)())})(),a.x()})();
+(()=>{"use strict";var e,t={9150:(e,t,a)=>{var o=a(7294),n=a(745),r=a(8804);const l=(0,r.ZP)((({className:e,children:t,x:a,y:n,w:r=1,h:l=1})=>o.createElement("section",{children:t,className:`${a?`x${a} `:""}${n?`y${n} `:""}w${r} h${l} panel ${e}`})))`
+  background-color: ${e=>e.noBg?"transparent":"hsla(0, 0%, 0%, 0.6)"};
+
+  & & {
+    margin: 2px;
+    padding: 0 2px;
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  ${e=>e.style}
+`;var i=a(3279),s=a.n(i);const c=(0,r.ZP)((({id:e,className:t,draw:a,onMouseEnter:n,onMouseMove:r,onMouseLeave:l})=>{const[i,c]=o.useState({x:0,y:0,width:0,height:0}),d=o.useRef(void 0);o.useEffect((()=>{const{current:e}=d;e&&a&&a(e.getContext("2d"),i)}),[d.current,a,i]);const h=o.useCallback((()=>{if(!d.current)return;const{x:e,y:t,width:a,height:o}=d.current.getBoundingClientRect();c({x:e,y:t,width:a,height:o})}),[c]);return o.useEffect((()=>{const e=s()(h,200,{trailing:!0,maxWait:1e3});return window.addEventListener("resize",e),e(),()=>{window.removeEventListener("resize",e)}}),[]),o.createElement("canvas",{id:e,className:t,onMouseEnter:e=>n(e,d.current.getContext("2d"),i),onMouseMove:e=>r(e,d.current.getContext("2d"),i),onMouseLeave:e=>l(e,d.current.getContext("2d"),i),ref:d,width:i.width,height:i.height})}))`
+  width: 100%;
+  height: 100%;
+
+  ${e=>e.style}
+`;var d,h,m=a(6264),u=a(6127),p=a(3703);!function(e){e.Cases="cases",e.Deaths="deaths"}(d||(d={})),function(e){e.ShowOverall="show-overall",e.Deltas="deltas",e.LogScale="log-scale"}(h||(h={}));const f=o.createContext(void 0),g=({children:e})=>{const[t,a]=o.useState({chartVerticalPadding:1.1,pandemicStart:new Date(2020,0,21),fromBottom:32,fromLeft:0,months:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],dataType:d.Cases,options:[h.ShowOverall],textInChartFont:'12px "Source Code Pro"',chartMetaColor:"#cccccc",hoverValue:{date:void 0,value:0},maxRange:1032,selectedStates:["New York","Florida","Texas"],hoveredDataPoints:[],lineWidthMain:2,lineWidthGrid:.5}),n=o.useCallback((e=>{a((t=>({...t,...e})))}),[a]),r=o.useMemo((()=>t.options.includes(h.ShowOverall)),[t.options]),l=o.useMemo((()=>t.options.includes(h.Deltas)),[t.options]),i=o.useMemo((()=>t.options.includes(h.LogScale)),[t.options]);return o.createElement(f.Provider,{value:{...t,update:n,includeUS:r,isRelative:l,isLogScale:i}},e)};g.displayName="GlobalContext";const v=g,w=({style:e,scaledY:t,scaledX:a,data:n})=>{const{fromBottom:r,fromLeft:l,maxRange:i,pandemicStart:s,lineWidthMain:d}=o.useContext(f),h=o.useCallback((e=>t(i,e-r)),[t,i,r]);return o.createElement(c,{id:n?.name?(0,m.camelize)(n.name):void 0,draw:(e,{width:t,height:o})=>{e.clearRect(0,0,t,o);const r=h(o),i=a(s,(0,u.Z)(new Date,(0,p.Z)(s))+1,t-l);if(n.data.length){e.beginPath(),e.strokeStyle=n.color,e.lineWidth=d,e.moveTo(i(n.data[0].x)+l,r(n.data[0].y));for(let t=1;t<n.data.length;t++)e.lineTo(i(n.data[t].x)+l,r(n.data[t].y));e.stroke(),e.closePath()}},style:e})};var x=a(5564),y=a.n(x),k=a(9669),b=a.n(k);const E=(e=>{const t=b().create({baseURL:"https://disease.sh/v3/covid-19/"});return t.interceptors.response.use((e=>(e.data&&/^application\/json/.test(e.headers["content-type"])&&(e.data=(0,m.camelizeKeys)(e.data)),e))),t.interceptors.request.use((e=>{const t={...e};return"multipart/form-data"===t.headers["Content-Type"]||(e.params&&(t.params=(0,m.decamelizeKeys)(e.params)),e.data&&(t.data=(0,m.decamelizeKeys)(e.data))),t})),t})();var C=a(2902),S=a(9734),M=a.n(S);const P=(e=[])=>(t,a=!1)=>M()(e.map((({date:e,[t]:o},n,r)=>({x:(0,C.Z)(e),y:a&&n?o-(r[n-1][t]||0):o}))),[({x:e})=>e]),Z=[2,2,1],z=(Z.reduce(((e,t)=>e+t),0),Z.length,{year:"numeric",month:"long",day:"numeric"}),N={year:"2-digit",month:"2-digit",day:"2-digit"},I=e=>e instanceof Date?e:(0,C.Z)(e),D=e=>t=>e.toLocaleDateString(void 0,t),L=e=>D(I(e))(z),T=e=>e.toLocaleString(void 0,{notation:"compact"}),O=window._tasks=new Map,$=window._executeTasks=(e=!1)=>{Array.from(O.values()).map((t=>(!e&&t.countdown--,t))).filter((({countdown:t})=>e||0>=t)).forEach((t=>{t.fn(),!e&&(t.countdown=t.delay)}))};window.setInterval($,1e3);const R=(e,t)=>(0,o.useEffect)((()=>{const a=Symbol();return O.set(a,{fn:t,delay:1*e,countdown:0}),()=>{O.has(a)&&O.delete(a)}}),[e,t]),W=(e,t)=>({...e,...t}),F={"New York":"#008BC4",Alabama:"#996633",Arizona:"#16256b",California:"#000080",Delaware:"#71a1a0",Florida:"#cc6500",Georgia:"#993366",Hawaii:"#f00c0f",Idaho:"#339966",Indiana:"#0000cc",Kentucky:"#ffe39b",Louisiana:"#c41e3a",Maryland:"#336699",Massachusetts:"#0000ff",Minnesota:"#800080",Nevada:"#c0c0c0","New Hampshire":"#fa500","New Jersey":"#f0dc82","New Mexico":"#ffff00","North Carolina":"#cc0000",Ohio:"#0000ff",Oklahoma:"#008000",Oregon:"#ccac00",Pennsylvania:"#008800","South Carolina":"#00416a","South Dakota":"#ffd700",Tennessee:"#ff7f00",Texas:"#ff0000",Utah:"#ffcc33",Vermont:"#006400","West Virginia":"#cfb53b",Wyoming:"#a52a2a"};var j=a(7349),_=a(4135),A=a(1640),V=a(8148),U=a(876),B=a(7950),Y=a(1593),G=a(6843),K=a(9119),J=a(5472),H=a.n(J);const X=(e,t)=>{if(!e)return t;const a=(o=7,(e,t)=>{const[{y:a},...n]=e.slice(t-o-1,t);return n.reduce((e=>(t,{y:a},o,n)=>t+Math.max(0,o?a-n[o-1].y:a-e))(a),0)/o});var o;return t.map((({data:e,...t})=>({...t,data:e.map(((e,t,o)=>{if(t<=7)return e;const n=a(o,t);return{...e,y:n}}))})))},q=e=>(t,a)=>o=>e?a*(1-Math.max(0,Math.log10(o)/Math.log10(t))):a*(1-o/t),Q=e=>(t,a)=>o=>e?Math.pow(10,(a-o)*(Math.log10(t)/a)):t/a*(a-o),ee=(e,t,a)=>o=>a*((0,u.Z)(o,(0,p.Z)(e))/t),te=(e,t,a)=>o=>(0,j.Z)((0,p.Z)(e),Math.floor(t*(o/a))),ae=({zIndex:e})=>{const{pandemicStart:t,fromLeft:a,fromBottom:n,months:r,chartMetaColor:l,textInChartFont:i}=o.useContext(f);return o.createElement(c,{draw:(e,{width:o,height:s})=>{e.clearRect(0,0,o,s);let c=(0,p.Z)(t);const d=new Date,h=ee(t,(0,u.Z)(new Date,(0,p.Z)(t)),o-a);let m=0;for(;c<d;){e.beginPath(),e.fillStyle=`rgba(0, 0, 0, ${m%2?.6:.2})`;let t=h(c)+a;const o=h((0,_.Z)(c))-t;e.fillRect(t,0,o,s),e.closePath(),e.beginPath(),e.fillStyle=l,e.font=i,e.textAlign="center",e.fillText(r[m%r.length],t+o/2,s-n+12),e.closePath(),c=(0,A.Z)(c,1),m++}let f=(0,V.Z)(t);for(m=0;f<d;){e.beginPath();let o=h(f)+a;(0,U.Z)(f);const r=h((0,B.Z)([d,(0,U.Z)(f)]))-o;e.fillStyle=l,e.font=i,e.textAlign="center",e.fillText(`${t.getFullYear()+m}`,o+r/2,s-n+16+12),e.closePath(),f=(0,Y.Z)(f,1),m++}},style:{position:"absolute",top:"0",left:"0","z-index":e}})},oe=({zIndex:e})=>{const{isLogScale:t,fromLeft:a,fromBottom:n,maxRange:r,chartMetaColor:l,textInChartFont:i,lineWidthGrid:s}=o.useContext(f);return o.createElement(c,{draw:(e,{width:o,height:c})=>{e.clearRect(0,0,o,c);const d=q(t)(r,c-n),h=t=>{const n=d(t);e.beginPath(),e.strokeStyle=l,e.lineWidth=s,e.moveTo(a,n),e.lineTo(o,n),e.stroke(),e.closePath(),e.beginPath(),e.fillStyle=l,e.font=i,e.textAlign="left",e.fillText(`${T(Math.round(t))}`,a,n+12),e.closePath(),e.beginPath(),e.fillStyle=l,e.font=i,e.textAlign="right",e.fillText(`${T(Math.round(t))}`,o,n+12),e.closePath()};if(h(0),t){const e=Math.ceil(Math.log10(r));for(let t=1;t<=e;t++)h(Math.pow(10,t))}else{h(r);for(let e=1;e<10;e++)h(r*(e/10))}},style:{position:"absolute",top:"0",left:"0","z-index":e}})},ne=({zIndex:e})=>{const{pandemicStart:t,fromLeft:a,fromBottom:n,lineWidthGrid:r}=o.useContext(f);return o.createElement(c,{draw:(e,{width:o,height:l})=>{e.clearRect(0,0,o,l);const i=ee(t,(0,u.Z)(new Date,(0,p.Z)(t)),o-a),s=window?.importantDates||{};Object.entries(s).forEach((([t])=>{(t=>{const o=i(t)+a;e.beginPath(),e.strokeStyle="red",e.lineWidth=r,e.moveTo(o,0),e.lineTo(o,l-n),e.stroke(),e.closePath()})(new Date(t))}))},style:{position:"absolute",top:"0",left:"0","z-index":e}})},re=({zIndex:e})=>{const{fromBottom:t,fromLeft:a,isLogScale:n,maxRange:r,pandemicStart:l,hoverValue:i,update:s,lineWidthGrid:d}=o.useContext(f);return o.createElement(c,{onMouseEnter:(e,t,{width:a,height:o})=>{t.clearRect(0,0,a,o),s({hoverValue:{...i,date:void 0}})},onMouseLeave:(e,t,{width:a,height:o})=>{t.clearRect(0,0,a,o),s({hoverValue:{...i,date:void 0}})},onMouseMove:(e,o,{width:i,height:c,y:h})=>{o.clearRect(0,0,i,c);const m=e.clientX,f=e.clientY-h;f>c-t||m<a||(o.beginPath(),o.strokeStyle="yellow",o.lineWidth=d,o.moveTo(a,f),o.lineTo(i,f),o.stroke(),o.closePath(),o.beginPath(),o.strokeStyle="yellow",o.lineWidth=d,o.moveTo(m,c-t),o.lineTo(m,0),o.stroke(),o.closePath(),s({hoverValue:{date:te(l,(0,u.Z)(new Date,(0,p.Z)(l)),i-a)(m+a),value:Q(n)(r,c-t)(f)}}))},style:{position:"absolute",top:"0",left:"0","z-index":e,cursor:"crosshair"}})},le=({zIndex:e,US:t})=>{const{isLogScale:a,includeUS:n}=o.useContext(f);return n&&t.loaded&&t.data.length?o.createElement(w,{scaledX:ee,data:t.data[0],scaledY:q(a),style:{position:"absolute",top:"0",left:"0","z-index":e}}):null},ie=({zIndex:e,States:t})=>{const{isLogScale:a}=o.useContext(f);return t.loaded&&t.datasets.length?o.createElement(o.Fragment,null,H()(t.datasets,[({name:e})=>e.toLowerCase()],["asc"]).map(((t,n)=>o.createElement(w,{key:t.name,scaledX:ee,data:t,scaledY:q(a),style:{position:"absolute",top:"0",left:"0","z-index":`${Number(e)+n}`}})))):null},se=(e,t=!1)=>{const{data:a=[],error:n,loaded:r,loading:l}=((e="deaths",t=!1,a=10)=>{const{data:n,loading:r,loaded:l,error:i}=(e=>{const[t,a]=(0,o.useReducer)(W,void 0,(()=>({data:[],loading:!1,loaded:!1,error:void 0})));return R(60*e,(0,o.useCallback)((async()=>{a({...t,loading:!0,loaded:!1,error:void 0});const e=await(async()=>{let e=[];try{e=(await E("nyt/usa")).data}catch(e){console.log({err:e})}finally{return e}})();a({...t,loading:!1,loaded:!0,error:void 0,data:e})}),[a])),t})(a),[s,c]=(0,o.useState)([]);return(0,o.useEffect)((()=>{c([{name:"United States",color:"cyan",data:P(n)(e,t)}])}),[n,e,t]),{data:s,loading:r,loaded:l,error:i}})(e);return{error:n,loaded:r,loading:l,data:X(t,a)}},ce=(e,t,a=!1)=>{const{datasets:n=[],error:r,loaded:l,loading:i}=((e,t="deaths",a=!1,n=10)=>{const{data:r,loading:l,loaded:i,error:s}=((e,t)=>{const[a,n]=(0,o.useReducer)(W,void 0,(()=>({data:[],loading:!1,loaded:!1,error:void 0})));return R(60*e,(0,o.useCallback)((async()=>{n({...a,loading:!0,loaded:!1,error:void 0});const e=await Promise.all(t.map((e=>(async e=>{let t=[];try{t=(await E(`nyt/states/${encodeURIComponent(e)}?lastdays=all`)).data}catch(e){console.log({err:e})}finally{return t}})(e))));n({...a,loading:!1,loaded:!0,error:void 0,data:e})}),[n,t.join("|")])),a})(n,e),[c,d]=(0,o.useState)([]);return(0,o.useEffect)((()=>{d(e.map(((e,o)=>({name:e,color:F[e]||"lightgray",data:P(r[o])(t,a)}))))}),[r,t,a]),{datasets:c,loading:l,loaded:i,error:s}})(e,t);return{error:r,loaded:l,loading:i,datasets:X(a,n)}},de=()=>{const{chartVerticalPadding:e,includeUS:t,dataType:a,isRelative:n,selectedStates:r,update:l,hoverValue:i}=o.useContext(f),s=se(a,n),c=ce(r,a,n);return o.useEffect((()=>{let a=0;t&&s.loaded&&s.data.length&&(a=Math.max(a,Math.max.apply(Math,s.data[0].data.map((({y:e})=>e))))),c.loaded&&c.datasets.length&&c.datasets.every((e=>e.data.length))&&(a=Math.max(a,Math.max.apply(Math,y()(c.datasets.map((({data:e})=>e))).map((({y:e})=>e))))),l({maxRange:Math.round(a*e)})}),[s.data,s.loaded,c.datasets,c.loaded,t,n]),o.useEffect((()=>{let e=[];i.date?(t&&s.loaded&&s.data[0].data.length&&e.push({...s.data[0],data:s.data[0].data.filter((({x:e})=>(0,G.Z)((0,K.Z)(e),(0,K.Z)(i.date))))}),c.loaded&&e.push.apply(e,c.datasets.map((e=>({...e,data:e.data.filter((({x:e})=>(0,G.Z)((0,K.Z)(e),(0,K.Z)(i.date))))})))),e=H()(e,[({data:e})=>Math.max.apply(Math,e.map((({y:e})=>e))),({name:e})=>e.toLowerCase()],["desc","asc"]),l({hoveredDataPoints:e})):l({hoveredDataPoints:e})}),[s.data,s.loaded,c.datasets,c.loaded,t,i,l]),o.createElement(o.Fragment,null,o.createElement(ae,{zIndex:"10"}),o.createElement(oe,{zIndex:"11"}),o.createElement(ne,{zIndex:"12"}),o.createElement(le,{zIndex:"20",US:s}),o.createElement(ie,{zIndex:"21",States:c}),o.createElement(re,{zIndex:"100"}))},he=r.ZP.label`
+  position: relative;
+  padding: 0;
+  display: flex;
+  flex-direction: rows;
+  align-items: center;
+  justify-items: stretch;
+`,me=r.ZP.input`
+  flex: 0;
+  display: inline-block;
+  align-self: stretch;
+  margin: 0;
+  margin-right: 1.2rem;
+  padding: 0;
+  height: 1rem;
+  width: 0;
+
+  &:before,
+  &:after {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 1em;
+    height: 1em;
+    border: 1px solid transparent;
+    transform: translateY(-50%);
+
+    font-family: 'Material Icons Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1em;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+  }
+
+  &:before {
+    content: '';
+    // background-color: transparentize(white, 0.95);
+  }
+
+  &:after {
+    content: 'radio_button_unchecked';
+    border-color: transparent;
+    color: hsla(0, 100%, 100%, 0.15);;
+  }
+  &:checked:after {
+    content: 'radio_button_checked';
+    color: var(--success);
+  }
+  }
+`,ue=r.ZP.section`
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`,pe=(0,r.ZP)((({className:e,onChange:t,label:a="radio",checked:n=!1,value:r=(0,m.camelize)(a)})=>o.createElement(he,{className:`${e}`,title:a},o.createElement(me,{onChange:t,checked:n,type:"radio","data-value":r}),o.createElement(ue,null,a))))`
+`,fe=(0,r.ZP)((({options:e,selected:t,onChange:a=(()=>{})})=>o.createElement(o.Fragment,null,e.map((({label:n,value:r})=>o.createElement(pe,{key:r,label:n,value:r,className:`w${Math.max(1,Math.floor(12/e.length))}`,checked:t===r,onChange:({target:e})=>{a(e.dataset.value)}}))))))`
+`,ge=r.ZP.label`
+  position: relative;
+  padding: 0;
+  display: flex;
+  flex-direction: rows;
+  align-items: center;
+  justify-items: stretch;
+`,ve=r.ZP.input`
+  flex: 0;
+  display: inline-block;
+  align-self: stretch;
+  margin: 0;
+  margin-right: 1.2rem;
+  padding: 0;
+  height: 1rem;
+  width: 0;
+
+  &:before,
+  &:after {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 1em;
+    height: 1em;
+    border: 1px solid transparent;
+    transform: translateY(-50%);
+
+    font-family: 'Material Icons Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1em;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+  }
+
+  &:before {
+    content: '';
+    // background-color: transparentize(white, 0.95);
+  }
+
+  &:after {
+    content: 'check_box_outline_blank';
+    border-color: transparent;
+    color: hsla(0, 100%, 100%, 0.15);;
+  }
+  &:checked:after {
+    content: 'check_box';
+    color: var(--success);
+  }
+  }
+`,we=r.ZP.section`
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`,xe=(0,r.ZP)((({className:e,onChange:t,label:a="checkbox",checked:n=!1,value:r=(0,m.camelize)(a)})=>o.createElement(ge,{className:`${e}`,title:a},o.createElement(ve,{onChange:t,checked:n,type:"checkbox","data-value":r}),o.createElement(we,null,a))))`
+  ${e=>e.style}
+`,ye=(0,r.ZP)((({options:e,selected:t=[],onChange:a=(()=>{})})=>o.createElement(o.Fragment,null,e.map((({label:n,value:r})=>o.createElement(xe,{key:r,label:n,value:r,className:`w${Math.max(1,Math.floor(12/e.length))}`,checked:t.includes(r),onChange:({target:e})=>{t.includes(r)?a(t.filter((e=>e!==r))):a([...t,r])}}))))))`
+`,ke=()=>{const{options:e,dataType:t,update:a}=o.useContext(f);return o.createElement(o.Fragment,null,o.createElement(l,{x:2,w:3,className:"as-table one-row"},o.createElement(fe,{options:[{label:"Cases",value:d.Cases},{label:"Deaths",value:d.Deaths}],onChange:e=>{a({dataType:e})},selected:t})),o.createElement(l,{w:4,className:"as-table one-row"},o.createElement(ye,{options:[{label:"Relative",value:h.Deltas},{label:"Log Scale",value:h.LogScale},{label:"Include US",value:h.ShowOverall}],onChange:e=>{a({options:e})},selected:e})))},be=()=>{const{hoverValue:e}=o.useContext(f);return o.createElement(l,{x:9,w:3},e.date?o.createElement("section",{style:{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100%"}},o.createElement("div",null,L(e.date)),o.createElement("div",null,Math.round(e.value).toLocaleString(void 0,{useGrouping:!0,maximumFractionDigits:0,roundingMode:"floor"}))):null)},Ee=JSON.parse('["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]'),Ce=r.ZP.button`
+  width: unset;
+`,Se=(0,r.ZP)(l)`
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`,Me=(0,r.ZP)(l)`
+  position: relative;
+  border-radius: 0.75rem;
+  padding: 1.5rem !important;
+  background-color: #131313;
+  box-shadow: 2px 2px 4px #333333;
+  display: grid;
+  grid-auto-columns: max-content;
+  grid-template-rows: repeat(10, 1fr);
+  grid-auto-flow: column;
+  gap: 4px;
+`,Pe=(0,r.ZP)((({className:e,onClick:t})=>o.createElement("div",{className:e,onClick:t},o.createElement("span",{className:"material-icons",style:{verticalAlign:"middle",fontSize:"1em"}},"close"))))`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 60;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--error);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--error);
+    color: white;
+  }
+
+  .material-icons {
+    ${"\n  text-shadow:\n    calc(var(--stroke-width, 1px) * 1) calc(var(--stroke-width, 1px) * 0) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * 0.9239) calc(var(--stroke-width, 1px) * 0.3827) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * 0.7071) calc(var(--stroke-width, 1px) * 0.7071) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * 0.3827) calc(var(--stroke-width, 1px) * 0.9239) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * 0) calc(var(--stroke-width, 1px) * 1) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * -0.3827) calc(var(--stroke-width, 1px) * 0.9239) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * -0.7071) calc(var(--stroke-width, 1px) * 0.7071) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * -0.9239) calc(var(--stroke-width, 1px) * 0.3827) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * -1) calc(var(--stroke-width, 1px) * 0) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * -0.9239) calc(var(--stroke-width, 1px) * -0.3827) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * -0.7071) calc(var(--stroke-width, 1px) * -0.7071) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * -0.3827) calc(var(--stroke-width, 1px) * -0.9239) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * 0) calc(var(--stroke-width, 1px) * -1) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * 0.3827) calc(var(--stroke-width, 1px) * -0.9239) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * 0.7071) calc(var(--stroke-width, 1px) * -0.7071) 0 var(--stroke-color, #000000),\n    calc(var(--stroke-width, 1px) * 0.9239) calc(var(--stroke-width, 1px) * -0.3827) 0 var(--stroke-color, #000000);\n"}
+  }
+`,Ze=(0,r.ZP)((({className:e})=>{const{selectedStates:t,update:a}=o.useContext(f),[n,r]=o.useState(!1);return o.createElement(o.Fragment,null,o.createElement(Ce,{onClick:()=>{r((e=>!e))}},o.createElement("span",{className:"material-icons-outlined"},"where_to_vote")," ","Choose States"),n?o.createElement(Se,null,o.createElement(Me,null,o.createElement(Pe,{onClick:()=>{r(!1)}}),Ee.map((e=>o.createElement(xe,{key:e,style:F[e]?{color:F[e]}:void 0,label:e,value:e,checked:t.includes(e),onChange:()=>{t.includes(e)?a({selectedStates:t.filter((t=>t!==e))}):a({selectedStates:[...t,e]})}}))))):null)}))``,ze=({x:e,y:t,w:a,h:n})=>{const{hoveredDataPoints:r}=o.useContext(f);return o.createElement(l,{x:e,y:t,w:a,h:n,style:{height:"100%",overflow:"hidden",...r.length?{columnWidth:"calc(96px * 1.8)"}:{display:"flex",alignItems:"center",justifyContent:"center"}}},r.map((({name:e,color:t,data:[a]})=>a?.x?o.createElement("div",{key:`${e}${L(a.x)}`,style:{color:t,display:"flex",alignItems:"center",justifyContent:"space-between"}},o.createElement("span",null,e,":"),o.createElement("span",{style:{fontFamily:"Source Code Pro"}},T(a.y))):null)),r.length?null:o.createElement(Ze,null))};var Ne=a(4257);const Ie=r.ZP.span`
+  color: var(--highlight);
+  font-weight: bold;
+  margin-right: 4px;
+`,De=r.ZP.div`
+  font-size: 0.8rem;
+  line-height: 1em;
+`,Le=r.ZP.section`
+  overflow: hidden;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc(96px * 1.8);
+  grid-template-rows: 1fr;
+  gap 2px;
+`,Te=()=>{const{hoverValue:e}=o.useContext(f),t=o.useMemo((()=>Object.entries(window.importantDates).map((([e,t])=>{const a=(0,K.Z)(new Date(e));return{start:(0,j.Z)(a,-5),end:(0,j.Z)(a,5),date:a,info:t}}))),[window.importantDates]);return o.createElement(Le,null,t.filter((t=>(0,Ne.Z)(e.date,t))).map((({date:e,info:t})=>o.createElement(De,{key:e.getTime()},o.createElement(Ie,null,(e=>D(I(e))(N))(e)),t.replaceAll(/\b[a-z]/g,(e=>e.toUpperCase()))))))},Oe=window.document.createElement("main");Oe.id="covid-19-app",document.body.appendChild(Oe);const $e=o.createElement(o.StrictMode,null,o.createElement(v,null,o.createElement((()=>o.createElement(o.Fragment,null,o.createElement(l,{x:1,y:1,w:12,noBg:!0,className:"as-table one-row"},o.createElement(ke,null),o.createElement(be,null)),o.createElement(l,{x:1,y:2,w:10,h:10,noBg:!0,style:{position:"relative",perspective:"1024px"}},o.createElement(de,null)),o.createElement(ze,{x:11,y:2,w:2,h:10}),o.createElement(l,{x:1,y:12,w:12},o.createElement(Te,null)))),null)));(0,n.s)(Oe).render($e)}},a={};function o(e){var n=a[e];if(void 0!==n)return n.exports;var r=a[e]={id:e,loaded:!1,exports:{}};return t[e].call(r.exports,r,r.exports,o),r.loaded=!0,r.exports}o.m=t,e=[],o.O=(t,a,n,r)=>{if(!a){var l=1/0;for(d=0;d<e.length;d++){for(var[a,n,r]=e[d],i=!0,s=0;s<a.length;s++)(!1&r||l>=r)&&Object.keys(o.O).every((e=>o.O[e](a[s])))?a.splice(s--,1):(i=!1,r<l&&(l=r));if(i){e.splice(d--,1);var c=n();void 0!==c&&(t=c)}}return t}r=r||0;for(var d=e.length;d>0&&e[d-1][2]>r;d--)e[d]=e[d-1];e[d]=[a,n,r]},o.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return o.d(t,{a:t}),t},o.d=(e,t)=>{for(var a in t)o.o(t,a)&&!o.o(e,a)&&Object.defineProperty(e,a,{enumerable:!0,get:t[a]})},o.g=function(){if("object"==typeof globalThis)return globalThis;try{return this||new Function("return this")()}catch(e){if("object"==typeof window)return window}}(),o.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),o.nmd=e=>(e.paths=[],e.children||(e.children=[]),e),(()=>{var e={514:0};o.O.j=t=>0===e[t];var t=(t,a)=>{var n,r,[l,i,s]=a,c=0;if(l.some((t=>0!==e[t]))){for(n in i)o.o(i,n)&&(o.m[n]=i[n]);if(s)var d=s(o)}for(t&&t(a);c<l.length;c++)r=l[c],o.o(e,r)&&e[r]&&e[r][0](),e[r]=0;return o.O(d)},a=self.webpackChunkcovid_19=self.webpackChunkcovid_19||[];a.forEach(t.bind(null,0)),a.push=t.bind(null,a.push.bind(a))})();var n=o.O(void 0,[216],(()=>o(9150)));n=o.O(n)})();
