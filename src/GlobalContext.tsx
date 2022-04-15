@@ -1,4 +1,6 @@
 import React from 'react';
+import orderBy from 'lodash/orderBy';
+import KnownStates from './data/states.json';
 
 export enum DataTypes {
   Cases = 'cases',
@@ -31,6 +33,17 @@ type GlobalContext = {
 };
 export const GlobalContext = React.createContext<GlobalContext & { update: (options: Partial<GlobalContext>) => void }>(undefined);
 
+export const fromHash = () => {
+  let selectedStates = [];
+  if (location.hash.length > 1) {
+    selectedStates = decodeURIComponent(
+      location.hash.slice(1)
+    )
+      .split(',')
+      .filter(state => KnownStates.includes(state));
+  }
+  return selectedStates;
+}
 const Provider = ({ children }) => {
   const [ value, setValue ] = React.useState({
     chartVerticalPadding: 1.1,
@@ -44,7 +57,7 @@ const Provider = ({ children }) => {
     chartMetaColor: '#cccccc',
     hoverValue: { date: undefined, value: 0 },
     maxRange: 1032,
-    selectedStates: ['New York', 'Florida', 'Texas'],
+    selectedStates: [],
     hoveredDataPoints: [],
     lineWidthMain: 2.0,
     lineWidthGrid: 0.5
@@ -64,6 +77,26 @@ const Provider = ({ children }) => {
   const isLogScale = React.useMemo(() => (
     value.options.includes(Options.LogScale)
   ), [ value.options ]);
+
+  React.useLayoutEffect(() => {
+    const listener = () => {
+      let selectedStates = fromHash();
+
+      (!selectedStates.length) && (selectedStates = ['New York', 'Florida', 'Texas']);
+      update({
+        selectedStates: orderBy(
+          selectedStates,
+          [ state => state.toLowerCase() ],
+          [ 'asc' ]
+        )
+      });
+    };
+    window.addEventListener('hashchange', listener);
+    listener();
+    return () => {
+      window.removeEventListener('hashchange', listener);
+    };
+  }, []);
 
   return (
     <GlobalContext.Provider {...{ value: {

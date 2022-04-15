@@ -1,4 +1,5 @@
 import React from 'react';
+import orderBy from 'lodash/orderBy';
 import styled from 'styled-components';
 import {} from 'styled-components/cssprop';
 import Panel from './Panel';
@@ -86,7 +87,7 @@ type Props = {
 }
 
 const Component: React.FC<Props> = ({ className }) => {
-  const { selectedStates, update } = React.useContext(GlobalContext);
+  const { selectedStates } = React.useContext(GlobalContext);
   const [ displayModal, setDisplayModal ] = React.useState(false);
   return (
     <>
@@ -106,11 +107,20 @@ const Component: React.FC<Props> = ({ className }) => {
                     label: state, value: state,
                     checked: selectedStates.includes(state),
                     onChange: () => {
-                      if (selectedStates.includes(state)) {
-                        update({ selectedStates: selectedStates.filter(item => item !== state) });
+                      let newSelectedStates = [ ...selectedStates ];
+                      if (newSelectedStates.includes(state)) {
+                        newSelectedStates = newSelectedStates.filter(item => item !== state);
                       } else {
-                        update({ selectedStates: [...selectedStates, state ] });
+                        newSelectedStates = [...newSelectedStates, state ];
                       }
+                      window.location.hash = `#${
+                        orderBy(
+                          newSelectedStates,
+                          [ state => state.toLowerCase() ],
+                          [ 'asc' ]
+                        )
+                          .join(',')
+                      }`;
                     }
                   }} />
                 ))
