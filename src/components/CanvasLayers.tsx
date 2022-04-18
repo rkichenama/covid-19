@@ -159,25 +159,28 @@ const YAxis: React.FC<HasZIndex> = ({ zIndex }) => {
           ctx.stroke();
           ctx.closePath();
 
-          ctx.beginPath();
-          ctx.fillStyle = chartMetaColor;
-          ctx.font = textInChartFont;
-          ctx.textAlign = 'left';
-          ctx.fillText(
-            `${compactNumber(Math.round(value))}`,
-            fromLeft, zero + 12
-          );
-          ctx.closePath();
-          ctx.beginPath();
-          ctx.fillStyle = chartMetaColor;
-          ctx.font = textInChartFont;
-          ctx.textAlign = 'right';
-          ctx.fillText(
-            `${compactNumber(Math.round(value))}`,
-            width, zero + 12
-          );
-          ctx.closePath();
+          if (value !== 0) {
+            ctx.beginPath();
+            ctx.fillStyle = chartMetaColor;
+            ctx.font = textInChartFont;
+            ctx.textAlign = 'left';
+            ctx.fillText(
+              `${compactNumber(Math.round(value))}`,
+              fromLeft, zero + 12
+            );
+            ctx.closePath();
+            ctx.beginPath();
+            ctx.fillStyle = chartMetaColor;
+            ctx.font = textInChartFont;
+            ctx.textAlign = 'right';
+            ctx.fillText(
+              `${compactNumber(Math.round(value))}`,
+              width, zero + 12
+            );
+            ctx.closePath();
+          }
         };
+
         mark(0);
         if (isLogScale) {
           const m = Math.ceil(Math.log10(maxRange));
